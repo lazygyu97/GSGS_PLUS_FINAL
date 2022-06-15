@@ -23,40 +23,24 @@ import net.daum.mf.map.api.MapView
 
 class HomeFragment_1 : Fragment() {
 
-    // 바인딩 객체 타입에 ?를 붙여서 null을 허용 해줘야한다. ( onDestroy 될 때 완벽하게 제거를 하기위해 )
-    private var mBinding: FragmentHome1Binding? = null
-    // 매번 null 체크를 할 필요 없이 편의성을 위해 바인딩 변수 재 선언
-    private val binding get() = mBinding!!
-//
-//    private  val map=MapView(activity)
-//    private  val mapView=binding.kakaoMapView
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        mBinding= FragmentHome1Binding.inflate(inflater,container,false)
+
+            val v = inflater.inflate(R.layout.fragment_home_1, container, false)
         val mainAct = activity as MainActivity
 
-
-        //test할 때 밑에 세줄 주석
-//        val map=MapView(activity)
-//        val mapView=binding.kakaoMapView
-//        mapView.addView(map)
-        val map=MapView(activity)
-        val mapView=binding.kakaoMapView
+        val mapView=v.findViewById<ConstraintLayout>(R.id.kakaoMapView)
+        val map = MapView(activity)
         mapView.addView(map)
 
 
-
-        //픽업요청서 애니메이션
         val animation_1 = AnimationUtils.loadAnimation(context,R.anim.translate_up)
         val animation_2 = AnimationUtils.loadAnimation(context,R.anim.translate_down)
 
-        val pick_up_btn = binding.pickUpBtn
-        val page = binding.page
-        val close_btn = binding.closeBtn
+        val pick_up_btn =v.findViewById<Button>(R.id.pick_up_btn)
+        val page = v.findViewById<LinearLayout>(R.id.page)
+        val close_btn = v.findViewById<TextView>(R.id.close_btn)
 
         pick_up_btn.setOnClickListener {
-
-            val currentUser = Firebase.auth.currentUser
             pick_up_btn.visibility=View.INVISIBLE
             mainAct.HideBottomNavi(true)
             page.startAnimation(animation_1)
@@ -69,25 +53,41 @@ class HomeFragment_1 : Fragment() {
             page.startAnimation(animation_2)
             page.visibility=View.INVISIBLE
         }
-        return binding.root
-    //        val v = inflater.inflate(R.layout.fragment_home_1, container, false)
+
+        // Inflate the layout for this fragment
+        return v
+
+
+
+    }
+}
+//     다른 액티비티 및 프래그먼트에서 바인딩을 사용하지 않았기 때문에 통일함
+//    // 바인딩 객체 타입에 ?를 붙여서 null을 허용 해줘야한다. ( onDestroy 될 때 완벽하게 제거를 하기위해 )
+//    private var mBinding: FragmentHome1Binding? = null
+//    // 매번 null 체크를 할 필요 없이 편의성을 위해 바인딩 변수 재 선언
+//    private val binding get() = mBinding!!
+
+//        mBinding= FragmentHome1Binding.inflate(inflater,container,false)
 //        val mainAct = activity as MainActivity
 //
-//        val mapView=v.findViewById<ConstraintLayout>(R.id.kakaoMapView)
-//        val map = MapView(activity)
 //
-//        fun map(){
-//                mapView.addView(map)
-//            }
+//        //test할 때 밑에 세줄 주석
+////        val map=MapView(activity)
+////        val mapView=binding.kakaoMapView
+////        mapView.addView(map)
 //
+//
+//        //픽업요청서 애니메이션
 //        val animation_1 = AnimationUtils.loadAnimation(context,R.anim.translate_up)
 //        val animation_2 = AnimationUtils.loadAnimation(context,R.anim.translate_down)
 //
-//        val pick_up_btn =v.findViewById<Button>(R.id.pick_up_btn)
-//        val page = v.findViewById<LinearLayout>(R.id.page)
-//        val close_btn = v.findViewById<TextView>(R.id.close_btn)
+//        val pick_up_btn = binding.pickUpBtn
+//        val page = binding.page
+//        val close_btn = binding.closeBtn
 //
 //        pick_up_btn.setOnClickListener {
+//
+//            val currentUser = Firebase.auth.currentUser
 //            pick_up_btn.visibility=View.INVISIBLE
 //            mainAct.HideBottomNavi(true)
 //            page.startAnimation(animation_1)
@@ -100,14 +100,4 @@ class HomeFragment_1 : Fragment() {
 //            page.startAnimation(animation_2)
 //            page.visibility=View.INVISIBLE
 //        }
-//
-//            // Inflate the layout for this fragment
-//        return v
-
-
-
-    }
-//    fun changeMap(){
-//        mapView.addView(map)
-//    }
-}
+//        return binding.root
