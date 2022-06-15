@@ -35,10 +35,21 @@ class HomeFragment_1 : Fragment() {
         mBinding= FragmentHome1Binding.inflate(inflater,container,false)
         val mainAct = activity as MainActivity
 
+
         //test할 때 밑에 세줄 주석
+<<<<<<<<< Temporary merge branch 1
+//        val map=MapView(activity)
+//        val mapView=binding.kakaoMapView
+//        mapView.addView(map)
+=========
         val map=MapView(activity)
         val mapView=binding.kakaoMapView
         mapView.addView(map)
+
+
+
+        //픽업요청서 애니메이션
+>>>>>>>>> Temporary merge branch 2
         val animation_1 = AnimationUtils.loadAnimation(context,R.anim.translate_up)
         val animation_2 = AnimationUtils.loadAnimation(context,R.anim.translate_down)
 
