@@ -18,4 +18,8 @@
         android:text="21"
         tools:layout_editor_absoluteX="28dp"
         tools:layout_editor_absoluteY="91dp" />
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/gsgs_logo"/>
 </LinearLayout>
