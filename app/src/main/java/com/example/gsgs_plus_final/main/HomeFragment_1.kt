@@ -35,7 +35,7 @@ class HomeFragment_1 : Fragment() {
         mBinding= FragmentHome1Binding.inflate(inflater,container,false)
         val mainAct = activity as MainActivity
 
-        //영민이형 바보 멍청이 샤끼
+
         //test할 때 밑에 세줄 주석
 //        val map=MapView(activity)
 //        val mapView=binding.kakaoMapView
