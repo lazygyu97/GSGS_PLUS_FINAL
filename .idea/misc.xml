@@ -3,8 +3,6 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/sog31/AndroidStudioProjects/GSGS_PLUS_FINAL/app/src/main/res/layout/activity_login.xml" value="0.38645833333333335" />
-        <entry key="..\:/Users/sog31/AndroidStudioProjects/GSGS_PLUS_FINAL/app/src/main/res/layout/activity_picker_join.xml" value="0.1879432624113475" />
         <entry key="app/src/main/res/drawable-v24/pick_up.xml" value="0.153" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.5156230953568263" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.2740628166160081" />
