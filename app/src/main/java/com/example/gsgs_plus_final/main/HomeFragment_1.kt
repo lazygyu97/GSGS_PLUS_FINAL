@@ -35,13 +35,12 @@ class HomeFragment_1 : Fragment() {
         mBinding= FragmentHome1Binding.inflate(inflater,container,false)
         val mainAct = activity as MainActivity
 
-        //test할 때 밑에 세줄 주석
-        val map=MapView(activity)
-        val mapView=binding.kakaoMapView
-        mapView.addView(map)
-
-
-
+     
+=======      //test할 때 밑에 세줄 주석
+//        val map=MapView(activity)
+//        val mapView=binding.kakaoMapView
+//        mapView.addView(map)
+>       
         //픽업요청서 애니메이션
         val animation_1 = AnimationUtils.loadAnimation(context,R.anim.translate_up)
         val animation_2 = AnimationUtils.loadAnimation(context,R.anim.translate_down)
