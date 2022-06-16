@@ -26,7 +26,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/button_shape"
         android:orientation="vertical"
-        android:visibility="invisible">
+        android:visibility="visible">
 
         <FrameLayout
             android:clickable="true"
@@ -227,6 +227,7 @@
                 </LinearLayout>
 
                 <Button
+                    android:id="@+id/accept"
                     android:background="@drawable/btn_edge_bold"
                     android:layout_marginTop="20dp"
                     android:layout_width="match_parent"
