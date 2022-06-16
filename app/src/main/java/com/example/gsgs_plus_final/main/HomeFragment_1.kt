@@ -39,7 +39,7 @@ class HomeFragment_1 : Fragment() {
         val pick_up_btn =v.findViewById<Button>(R.id.pick_up_btn)
         val page = v.findViewById<LinearLayout>(R.id.page)
         val close_btn = v.findViewById<TextView>(R.id.close_btn)
-
+//commit
         pick_up_btn.setOnClickListener {
             pick_up_btn.visibility=View.INVISIBLE
             mainAct.HideBottomNavi(true)
