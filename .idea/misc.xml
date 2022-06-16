@@ -3,13 +3,15 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/sog31/AndroidStudioProjects/GSGS_PLUS_FINAL/app/src/main/res/layout/activity_join.xml" value="0.38645833333333335" />
-        <entry key="..\:/Users/sog31/AndroidStudioProjects/GSGS_PLUS_FINAL/app/src/main/res/layout/activity_login.xml" value="0.307518115942029" />
-        <entry key="..\:/Users/sog31/AndroidStudioProjects/GSGS_PLUS_FINAL/app/src/main/res/layout/activity_main.xml" value="0.307518115942029" />
         <entry key="app/src/main/res/drawable-v24/pick_up.xml" value="0.153" />
+        <entry key="app/src/main/res/drawable/pickup_list_item.xml" value="0.301" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.5156230953568263" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.2740628166160081" />
         <entry key="app/src/main/res/layout/activity_picker_join.xml" value="0.2740628166160081" />
+        <entry key="app/src/main/res/layout/fragment_home_1.xml" value="0.2740628166160081" />
+        <entry key="app/src/main/res/layout/fragment_home_2.xml" value="0.2740628166160081" />
+        <entry key="app/src/main/res/layout/fragment_use_list.xml" value="0.2740628166160081" />
+        <entry key="app/src/main/res/layout/pickup_list_item.xml" value="0.40602083061241445" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.153" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.153" />
       </map>

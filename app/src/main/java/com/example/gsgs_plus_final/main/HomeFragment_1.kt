@@ -1,9 +1,6 @@
 package com.example.gsgs_plus_final.main
 
-import android.content.ContentValues.TAG
-import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,12 +10,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentResultListener
-import androidx.fragment.app.FragmentTransaction
 import com.example.gsgs_plus_final.R
-import com.example.gsgs_plus_final.databinding.FragmentHome1Binding
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
 import net.daum.mf.map.api.MapView
 
 class HomeFragment_1 : Fragment() {
