@@ -6,5 +6,7 @@ data class User (
     val sub_name : String,
     val id : String,
     val pwd : String,
-    val p_num : String
+    val p_num : String,
+    val uid : String,
+    val picker_flag : String
         )

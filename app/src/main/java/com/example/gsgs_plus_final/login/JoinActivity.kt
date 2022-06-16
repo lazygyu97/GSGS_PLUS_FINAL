@@ -185,23 +185,21 @@ class JoinActivity : AppCompatActivity() {
                     }
                 }
 
-                val user = User(join_name.text.toString(),join_sub_name.text.toString(),join_id.text.toString(),
-                    join_pwd.text.toString(),join_pnum.text.toString())
 
-                if(user.name.isNullOrBlank()){
+                if(join_name.text.toString().isNullOrBlank()){
                     //|| !(Pattern.matches("^[가-힣]*$",user.name)) 한글 입력 조건
                     Toast.makeText(this,"이름이 공백입니다!",Toast.LENGTH_LONG).show()
                     return@setOnClickListener
 
                 }
 
-                if(1 >= user.sub_name.length || user.sub_name.length >= 9){
+                if(1 >= join_sub_name.text.toString().length || join_sub_name.text.toString().length >= 9){
                     Toast.makeText(this,"닉네임의 길이는 최소2글자 최대 8글자 입니다!",Toast.LENGTH_LONG).show()
                     return@setOnClickListener
 
                 }
 
-                if(user.id.length > 20 ){
+                if(join_id.text.toString().length > 20 ){
                     Toast.makeText(this,"아이디가 20글자를 초과했어요!",Toast.LENGTH_LONG).show()
                     return@setOnClickListener
                 }
@@ -225,6 +223,9 @@ class JoinActivity : AppCompatActivity() {
                     auth.createUserWithEmailAndPassword(join_id.text.toString(),join_pwd.text.toString())
                         .addOnCompleteListener(this){
                                 task -> if(task.isSuccessful){
+
+                            val user = User(join_name.text.toString(),join_sub_name.text.toString(),join_id.text.toString(),
+                                join_pwd.text.toString(),join_pnum.text.toString(),auth.currentUser!!.uid,"0")
                             docRef.document(user.id).set(user)
                             Toast.makeText(this,"회원가입 성공!",Toast.LENGTH_LONG).show()
 
@@ -248,18 +249,9 @@ class JoinActivity : AppCompatActivity() {
 
             }catch (exception: Exception){
 
-                val join_name = findViewById<EditText>(R.id.join_name)
-                val join_sub_name = findViewById<EditText>(R.id.join_sub_name)
                 val join_id = findViewById<EditText>(R.id.join_id)
-                val join_pwd = findViewById<EditText>(R.id.join_pwd)
-                val join_pnum = findViewById<EditText>(R.id.join_pNum_insert)
 
-
-                val user = User(join_name.text.toString(),join_sub_name.text.toString(),join_id.text.toString(),
-                    join_pwd.text.toString(),join_pnum.text.toString())
-
-
-                if(!(Pattern.matches("^[a-zA-Z0-9]+@[a-zA-Z0-9]+$",user.id))){
+                if(!(Pattern.matches("^[a-zA-Z0-9]+@[a-zA-Z0-9]+$", join_id.text.toString()))){
                     Toast.makeText(this,"아이디가 이메일 형식이 아닙니다!",Toast.LENGTH_LONG).show()
                     return@setOnClickListener
                 }
