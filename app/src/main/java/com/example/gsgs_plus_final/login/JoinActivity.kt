@@ -8,16 +8,21 @@ import android.util.Log
 import android.widget.*
 import com.example.gsgs_plus_final.R
 import com.example.gsgs_plus_final.vo.User
-import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.FirebaseException
+import com.google.firebase.FirebaseTooManyRequestsException
+import com.google.firebase.auth.*
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import java.util.concurrent.TimeUnit
 import java.util.regex.Pattern
 
 class JoinActivity : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
     var double_check_confirm = "no"
+    var phone_auth  = false
+    var verificationIdAll : String =""
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -31,6 +36,105 @@ class JoinActivity : AppCompatActivity() {
         auth = Firebase.auth
         val double_check = findViewById<Button>(R.id.btn_doubleCheck)
         val join_button = findViewById<Button>(R.id.btn_join)
+
+        //SMS발송 버튼 클릭
+
+        val p_num_send = findViewById<Button>(R.id.join_pNum_sendBtn).setOnClickListener {
+
+            val join_pNum_insert = findViewById<EditText>(R.id.join_pNum_insert)
+
+            if(join_pNum_insert.text.toString().isNullOrBlank()){
+
+                Toast.makeText(this,"핸드폰 번호를 형식에 맞게 기입하세요!",Toast.LENGTH_LONG).show()
+                return@setOnClickListener
+
+            }
+
+            val callbacks = object :  PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+
+                override fun onVerificationCompleted(credential: PhoneAuthCredential) {
+                    Log.d(TAG,"call onVerificationCompleted")
+
+                }
+
+                //인증번호 발송 실패
+                override fun onVerificationFailed(e: FirebaseException) {
+                    Log.w(TAG, "onVerificationFailed", e)
+
+                    if (e is FirebaseAuthInvalidCredentialsException) {
+                        Toast.makeText(this@JoinActivity,"인증번호 전송에 실패했습니다.",Toast.LENGTH_LONG).show()
+                        Log.w(TAG, "FirebaseAuthInvalidCredentialsException", e)
+                        // Invalid request
+                    } else if (e is FirebaseTooManyRequestsException) {
+                        Toast.makeText(this@JoinActivity,"인증번호 전송에 실패했습니다.",Toast.LENGTH_LONG).show()
+                        Log.w(TAG, "FirebaseTooManyRequestsException", e)
+                        // The SMS quota for the project has been exceeded
+                    }
+                }
+                //인증번호 발송 후
+                override fun onCodeSent(verificationId: String, token: PhoneAuthProvider.ForceResendingToken) {
+
+                    Toast.makeText(this@JoinActivity,"인증번호가 전송되었습니다.",Toast.LENGTH_LONG).show()
+                    Log.d(TAG, "onCodeSent:$verificationId")
+                    verificationIdAll = verificationId
+
+
+                }
+
+            }
+            //인증번호를 위한 객체들
+            val options = PhoneAuthOptions.newBuilder(auth)
+                .setPhoneNumber("+82"+join_pNum_insert.text.toString())
+                .setTimeout(60L, TimeUnit.SECONDS)
+                .setActivity(this)
+                .setCallbacks(callbacks)
+                .build()
+
+            PhoneAuthProvider.verifyPhoneNumber(options)
+
+        }
+
+
+        //인증 절차 로직
+        fun signInWithPhoneAuthCredential(credential: PhoneAuthCredential) {
+
+            auth.signInWithCredential(credential).addOnCompleteListener(this){
+                    task -> if(task.isSuccessful) {
+                phone_auth = true
+                Log.d("PhoneSuccess:", "Confirm")
+                Toast.makeText(this,"인증되었습니다.",Toast.LENGTH_LONG).show()
+
+                auth.currentUser!!.delete().addOnCompleteListener {
+                        task -> if(task.isSuccessful){
+                    Log.d("PhoneUserDelete","Complete")
+
+                }
+
+                }
+
+            }else{
+                Toast.makeText(this,"인증번호가 다릅니다!",Toast.LENGTH_LONG).show()
+                Log.d("PhoneFail:","Fail!!")
+
+            }
+            }
+        }
+
+        //인증번호 확인 버튼 클릭
+        val join_sendMsg_confirmBtn = findViewById<Button>(R.id.join_pNum_sendNum_confirmBtn).setOnClickListener {
+            val join_pNum_sendNum_confirm = findViewById<EditText>(R.id.join_pNum_sendNum_confirm)
+
+            if(join_pNum_sendNum_confirm.text.toString().isNullOrBlank()){
+                Toast.makeText(this,"인증번호를 입력하세요!",Toast.LENGTH_LONG).show()
+                return@setOnClickListener
+            }
+            Log.d("confirmValue:",join_pNum_sendNum_confirm.text.toString())
+
+
+            val credential = PhoneAuthProvider.getCredential(verificationIdAll, join_pNum_sendNum_confirm.text.toString())
+            Log.d("verificationIdAll:",verificationIdAll)
+            signInWithPhoneAuthCredential(credential)
+        }
 
         //중복확인
         double_check.setOnClickListener {
@@ -70,6 +174,7 @@ class JoinActivity : AppCompatActivity() {
                 val join_id = findViewById<EditText>(R.id.join_id)
                 val join_pwd = findViewById<EditText>(R.id.join_pwd)
                 val join_confirm_pwd = findViewById<EditText>(R.id.join_confirm_pwd)
+                val join_pnum = findViewById<EditText>(R.id.join_pNum_insert)
 
                 join_check.setOnCheckedChangeListener { buttonView, isChecked ->
 
@@ -81,7 +186,7 @@ class JoinActivity : AppCompatActivity() {
                 }
 
                 val user = User(join_name.text.toString(),join_sub_name.text.toString(),join_id.text.toString(),
-                    join_pwd.text.toString())
+                    join_pwd.text.toString(),join_pnum.text.toString())
 
                 if(user.name.isNullOrBlank()){
                     //|| !(Pattern.matches("^[가-힣]*$",user.name)) 한글 입력 조건
@@ -147,11 +252,11 @@ class JoinActivity : AppCompatActivity() {
                 val join_sub_name = findViewById<EditText>(R.id.join_sub_name)
                 val join_id = findViewById<EditText>(R.id.join_id)
                 val join_pwd = findViewById<EditText>(R.id.join_pwd)
-
+                val join_pnum = findViewById<EditText>(R.id.join_pNum_insert)
 
 
                 val user = User(join_name.text.toString(),join_sub_name.text.toString(),join_id.text.toString(),
-                    join_pwd.text.toString())
+                    join_pwd.text.toString(),join_pnum.text.toString())
 
 
                 if(!(Pattern.matches("^[a-zA-Z0-9]+@[a-zA-Z0-9]+$",user.id))){
@@ -164,11 +269,6 @@ class JoinActivity : AppCompatActivity() {
 
             }
         }
-
-
-
-
-
 
         val btn_back = findViewById<Button>(R.id.btn_back)
         btn_back.setOnClickListener {
