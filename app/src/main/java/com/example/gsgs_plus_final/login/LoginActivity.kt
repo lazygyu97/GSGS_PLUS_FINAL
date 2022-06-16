@@ -44,45 +44,60 @@ class LoginActivity : AppCompatActivity() {
             val login_id = findViewById<EditText>(R.id.edit_id)
             val login_pwd = findViewById<EditText>(R.id.edit_pw)
 
-            if(login_id.text.toString().isNullOrBlank()){
+            //공백 ID처리
+            if (login_id.text.toString().isNullOrBlank()) {
                 Toast.makeText(this, "아이디를 입력해주세요!", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
-
-            if(login_pwd.text.toString().isNullOrBlank()){
+            //공백 PW처리
+            if (login_pwd.text.toString().isNullOrBlank()) {
                 Toast.makeText(this, "비밀번호를 입력해주세요! ", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
-            auth.signInWithEmailAndPassword(login_id.text.toString(),login_pwd.text.toString()).addOnCompleteListener(this){
-                task -> if(task.isSuccessful){
+            //로그인 로직 검증 (성공or실패)
+            auth.signInWithEmailAndPassword(login_id.text.toString(), login_pwd.text.toString())
+                .addOnCompleteListener(this) { task ->
+                    if (task.isSuccessful) {
+                        //로그인 성공
 
-                    Log.d(TAG,"Success")
-                    val user = auth.currentUser
-                    Toast.makeText(this, "메인화면으로 이동합니다. ", Toast.LENGTH_SHORT).show()
-                    //로그인 버튼을 누르면 메인화면으로 넘어가는 이벤트
-                    var intent = Intent(this, MainActivity::class.java)
-                    startActivity(intent)
+                        Log.d(TAG, "Success")
+                        val user = auth.currentUser
+                        Toast.makeText(this, "메인화면으로 이동합니다. ", Toast.LENGTH_SHORT).show()
+                        //로그인 버튼을 누르면 메인화면으로 넘어가는 이벤트
+                        var intent = Intent(this, MainActivity::class.java)
+                        startActivity(intent)
 
 
-               }else{
+                    } else {
+                        //로그인 실패
+                       val login_fail_query = docRef.document(login_id.text.toString()).get()
 
-                if(docRef.document(login_id.text.toString()) == null){
-                    Log.w(TAG,"loginIdFail",task.exception)
-                    Toast.makeText(this, "등록된 ID가 아닙니다! ", Toast.LENGTH_SHORT).show()
-                    return@addOnCompleteListener
-                }else{
-                    if(!(login_pwd.text.toString().equals(docRef.document(login_id.text.toString()).collection("pwd")))){
-                        Log.w(TAG,"loginIdpwd",task.exception)
-                        Toast.makeText(this, "패스워드가 틀립니다! ", Toast.LENGTH_SHORT).show()
-                        return@addOnCompleteListener
-                    }//if
+                        login_fail_query.addOnSuccessListener {
 
-                }//else
+                            document -> if(document.exists()){
 
-               }//else
-            }
-        }
+                            Log.d("loginFail:",docRef.document(login_id.text.toString()).toString())
+                            Toast.makeText(this, "패스워드가 틀립니다! ", Toast.LENGTH_SHORT).show()
+
+
+                          }else{
+
+                            Toast.makeText(this, "등록된 ID가 아닙니다! ", Toast.LENGTH_SHORT).show()
+
+
+                          }
+                        }
+
+
+                    }//else
+
+                }
+        }//onclick
+
+
+
+
 
         //회원가입 글자를 누르면 회원가입화면으로 넘어가는 이벤트
         val start_join1 = findViewById<TextView>(R.id.start_join)

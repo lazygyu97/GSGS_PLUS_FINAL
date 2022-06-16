@@ -25,12 +25,12 @@ class HomeFragment_1 : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
-            val v = inflater.inflate(R.layout.fragment_home_1, container, false)
+        val v = inflater.inflate(R.layout.fragment_home_1, container, false)
         val mainAct = activity as MainActivity
 
-        val mapView=v.findViewById<ConstraintLayout>(R.id.kakaoMapView)
-        val map = MapView(activity)
-        mapView.addView(map)
+//        val mapView=v.findViewById<ConstraintLayout>(R.id.kakaoMapView)
+//        val map = MapView(activity)
+//        mapView.addView(map)
 
 
         val animation_1 = AnimationUtils.loadAnimation(context,R.anim.translate_up)
