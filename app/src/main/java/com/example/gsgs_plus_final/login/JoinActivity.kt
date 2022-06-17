@@ -7,11 +7,14 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.*
 import com.example.gsgs_plus_final.R
+import com.example.gsgs_plus_final.chat.ChatUser
 import com.example.gsgs_plus_final.vo.User
 import com.google.firebase.FirebaseException
 import com.google.firebase.FirebaseTooManyRequestsException
 import com.google.firebase.auth.*
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import java.util.concurrent.TimeUnit
@@ -19,6 +22,8 @@ import java.util.regex.Pattern
 
 class JoinActivity : AppCompatActivity() {
 
+    //실시간 디비 받기위한 디비 초기화
+    private lateinit var mDbRef: DatabaseReference
     private lateinit var auth: FirebaseAuth
     var double_check_confirm = "no"
     var phone_auth  = false
@@ -228,7 +233,8 @@ class JoinActivity : AppCompatActivity() {
                                 join_pwd.text.toString(),join_pnum.text.toString(),auth.currentUser!!.uid,"0")
                             docRef.document(user.id).set(user)
                             Toast.makeText(this,"회원가입 성공!",Toast.LENGTH_LONG).show()
-
+                            //실시간 디비에 이름하고 uid 추가
+                            addUserToDatabase(user.name,auth.currentUser?.uid!!)
                             val intent = Intent(this, JoinFinshActivity::class.java)
                             intent.putExtra("user_name",user.name)
                             startActivity(intent)
@@ -269,6 +275,11 @@ class JoinActivity : AppCompatActivity() {
             startActivity(intent1)
         }
 
+
+    }
+    private fun addUserToDatabase(name: String,uid: String){
+        mDbRef= FirebaseDatabase.getInstance().getReference()
+        mDbRef.child("user").child(uid).setValue(ChatUser(name,uid))
 
     }
 }
