@@ -20,6 +20,15 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".request.FailRequestActivity"
+            android:exported="false" />
+        <activity
+            android:name=".request.DoingRequestActivity"
+            android:exported="false" />
+        <activity
+            android:name=".request.SuccessRequestActivity"
+            android:exported="false" />
+        <activity
             android:name=".chat.ChatActivity"
             android:exported="false" />
         <activity
