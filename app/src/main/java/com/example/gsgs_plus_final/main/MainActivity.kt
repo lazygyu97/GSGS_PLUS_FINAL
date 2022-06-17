@@ -17,9 +17,15 @@ import androidx.fragment.app.FragmentTransaction
 import com.example.gsgs_plus_final.R
 import com.example.gsgs_plus_final.login.PickerJoinActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var auth: FirebaseAuth
 
     // 픽업 요청서 클릭시 하단바 없애는 함수 ( 다른 프래그먼트에서 호출하여 사용한다 )
     fun HideBottomNavi(state: Boolean) {
@@ -114,15 +120,25 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        val db = Firebase.firestore
+        val docRef = db.collection("users")
+
+        auth = Firebase.auth
+        val currentUser_email_addr = auth.currentUser!!.email.toString()
+
         val transaction = supportFragmentManager.beginTransaction()
         transaction.add(frame.id, HomeFragment())
             .commit()
 
+
+
         pick_up.setOnCheckedChangeListener { _, onSwitch ->
             if (onSwitch) {
-                ask_picker()
-            } else {
-
+                docRef.document(currentUser_email_addr).get().addOnSuccessListener {
+                        document -> if(document.data!!.get("picker_flag") != "1"){
+                    ask_picker()
+                  }
+                }
             }
         }
 
