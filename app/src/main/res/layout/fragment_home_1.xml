@@ -122,7 +122,8 @@
 
 
         <androidx.core.widget.NestedScrollView
-            android:layout_width="match_parent"
+            android:layout_width="380dp"
+            android:layout_gravity="center"
             android:layout_height="match_parent"
             android:fillViewport="true">
 
@@ -344,6 +345,7 @@
 
                     </LinearLayout>
                     <Button
+                        android:id="@+id/pl_pick"
                         android:layout_marginTop="30dp"
                         android:layout_gravity="center"
                         android:layout_width="wrap_content"
