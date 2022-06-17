@@ -17,10 +17,16 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.gsgs_plus_final.R
 import com.example.gsgs_plus_final.login.PickerJoinActivity
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import net.daum.mf.map.api.MapView
 
 
 class HomeFragment : Fragment() {
+
+    private lateinit var auth: FirebaseAuth
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,6 +35,8 @@ class HomeFragment : Fragment() {
     }
 
     override fun onCreateView(
+
+
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -41,6 +49,13 @@ class HomeFragment : Fragment() {
 
         val pl_btn = v.findViewById<LinearLayout>(R.id.pl_button)
         val do_btn = v.findViewById<LinearLayout>(R.id.do_button)
+
+        val db = Firebase.firestore
+        val docRef = db.collection("users")
+
+        auth = Firebase.auth
+        val currentUser_email_addr = auth.currentUser!!.email.toString()
+
 
         fun ask_picker() {
             val ask_pick = AlertDialog.Builder(context)
@@ -80,7 +95,12 @@ class HomeFragment : Fragment() {
 
         }
         do_btn.setOnClickListener {
-            ask_picker()
+
+            docRef.document(currentUser_email_addr).get().addOnSuccessListener {
+                    document -> if(document.data!!.get("picker_flag") != "1"){
+                    ask_picker()
+                    }
+            }
             pl_btn.setBackgroundResource(R.drawable.button_shape)
             do_btn.setBackgroundResource(R.drawable.button_shape_2)
             childFragmentManager.beginTransaction()

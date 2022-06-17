@@ -91,7 +91,7 @@
                 app:passwordToggleEnabled="true">
 
                 <EditText
-                    android:id="@+id/join_confirm_pwd"
+                    android:id="@+id/picker_join_confirm_pwd"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:background="@drawable/btn_edge"
@@ -108,7 +108,9 @@
                 android:text=" 신분증 확인"
                 android:textColor="@color/black"
                 android:textSize="15dp" />
+
             <ImageView
+                android:id="@+id/picker_join_idCard_img"
                 android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="170dp"
@@ -129,6 +131,7 @@
                 android:textColor="@color/black"
                 android:textSize="15dp" />
             <EditText
+                android:id="@+id/picker_join_address"
                 android:background="@drawable/btn_edge"
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp"
@@ -144,6 +147,7 @@
                 android:textColor="@color/black"
                 android:textSize="15dp" />
             <EditText
+                android:id="@+id/picker_join_bankNum"
                 android:background="@drawable/btn_edge"
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp"
@@ -163,7 +167,7 @@
             android:orientation="vertical">
 
             <CheckBox
-                android:id="@+id/join_check"
+                android:id="@+id/picker_join_check"
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"
                 android:layout_gravity="center"
@@ -172,7 +176,7 @@
                 android:textSize="10dp" />
 
             <Button
-                android:id="@+id/btn_join"
+                android:id="@+id/picker_join_btn"
                 android:layout_width="230dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center"

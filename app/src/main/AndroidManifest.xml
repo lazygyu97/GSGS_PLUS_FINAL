@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.gsgs_plus_final">
+    package="com.example.gsgs_plus_final" >
     <!-- 카카오 api 권한 설정 -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -18,10 +18,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GSGS_PLUS_FINAL"
         android:usesCleartextTraffic="true"
-        tools:targetApi="31">
-        <activity
-            android:name=".chat.ChatActivity"
-            android:exported="false" />
+        tools:targetApi="31" >
         <activity
             android:name=".pickUp.FinishPickUpActivity"
             android:exported="false" />
@@ -60,7 +57,7 @@
             android:exported="true" />
         <activity
             android:name=".login.SplashActivity"
-            android:exported="true">
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
