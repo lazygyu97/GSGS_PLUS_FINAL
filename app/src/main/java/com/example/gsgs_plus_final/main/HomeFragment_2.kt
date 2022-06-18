@@ -71,12 +71,17 @@ class HomeFragment_2 : Fragment() {
 
                     val start_addr: String = document.data["pick_up_item_addr_start"].toString()
                     val end_addr: String = document.data["pick_up_item_addr_end"].toString()
+
+                    val start = start_addr.substring(8,14)
+                    val end = end_addr.substring(8,14)
+
+                    Log.d("sub",start)
                     val request_cost: String = document.data["pick_up_item_cost"].toString()
                     val document_id: String = document.id
 
                     pickList.apply {
 
-                        add(pick_list(start_addr, end_addr, request_cost, document_id))
+                        add(pick_list(start, end, request_cost, document_id))
 
                     }
 
