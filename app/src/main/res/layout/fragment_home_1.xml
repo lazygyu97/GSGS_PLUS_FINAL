@@ -80,6 +80,10 @@
     </LinearLayout>
 
     <!--픽업 요청서 레이아웃 -->
+
+    <LinearLayout
+        android:name=".RequestLayout"
+
     <FrameLayout
         android:id="@+id/page"
         android:layout_width="match_parent"
@@ -101,6 +105,7 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:focusableInTouchMode="true">
+
 
                 <TextView
                     android:id="@+id/close_btn"
@@ -135,6 +140,7 @@
                 android:layout_gravity="center"
                 android:fillViewport="true">
 
+
                 <LinearLayout
                     android:layout_width="380dp"
                     android:layout_height="wrap_content"
@@ -156,6 +162,18 @@
                         android:layout_marginTop="15dp"
                         android:orientation="horizontal">
 
+
+                        <TextView
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="물품 이름" />
+
+                        <EditText
+                            android:id="@+id/pick_up_item_name"
+                            android:layout_width="200dp"
+                            android:layout_height="wrap_content" />
+
                         <RadioGroup
                             android:id="@+id/radioGroup"
                             android:layout_width="match_parent"
@@ -175,9 +193,59 @@
                                 android:text="받으시는 분" />
                         </RadioGroup>
 
+
                     </LinearLayout>
 
                     <LinearLayout
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="20dp"
+                        android:background="@drawable/btn_edge">
+
+                        <ImageView
+                            android:id="@+id/pick_up_item_img"
+                            android:layout_width="250dp"
+                            android:layout_height="250dp"
+                            android:layout_gravity="center"
+                            android:scaleX="0.5"
+                            android:scaleY="0.5"
+                            android:src="@drawable/gsgs_logo" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <Button
+                            android:id="@+id/pick_up_item_imgBtn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:background="@drawable/button_shape"
+                            android:text="사진 등록" />
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginTop="20dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:text="주소 입력"
+                        android:textColor="@color/black"
+                        android:textSize="20dp"/>
+                    <LinearLayout
+
+
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
@@ -189,8 +257,48 @@
                             android:layout_height="wrap_content"
                             android:text="상대방도 겸사겸사의 회원이신가요?" />
 
+
+                        <EditText
+                            android:id="@+id/pick_up_item_addr_start"
+                            android:layout_width="200dp"
+                            android:layout_height="wrap_content" />
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="상세주소" />
+
+                        <EditText
+                            android:id="@+id/pick_up_item_addr_start_detail"
+                            android:layout_width="200dp"
+                            android:layout_height="wrap_content" />
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="주소 :" />
+
+                        <EditText
+                            android:id="@+id/pick_up_item_addr_end"
+                            android:layout_width="200dp"
+
                         <CheckBox
                             android:layout_width="wrap_content"
+
                             android:layout_height="wrap_content" />
 
                     </LinearLayout>
@@ -207,6 +315,7 @@
                             android:text="상대방 인증코드" />
 
                         <EditText
+                            android:id="@+id/pick_up_item_addr_end_detail"
                             android:layout_width="200dp"
                             android:layout_height="wrap_content" />
 
@@ -265,12 +374,19 @@
                             android:layout_height="wrap_content"
                             android:orientation="vertical">
 
+h_fix
+                        <EditText
+                            android:id="@+id/pick_up_item_request"
+                            android:layout_width="200dp"
+                            android:layout_height="wrap_content" />
+
                             <Button
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:background="@drawable/button_shape"
                                 android:text="사진 등록" />
+
 
                         </LinearLayout>
                     </LinearLayout>
@@ -286,6 +402,21 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="주소찾기" />
+
+
+                        <EditText
+                            android:id="@+id/pick_up_item_cost"
+                            android:layout_width="200dp"
+                            android:layout_height="wrap_content" />
+
+                    </LinearLayout>
+                    <Button
+                        android:id="@+id/pick_up_item_requestBtn"
+                        android:layout_marginTop="30dp"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="픽업 요청하기"/>
 
                         <TextView
                             android:layout_width="match_parent"
@@ -373,6 +504,7 @@
                             android:text="픽업 요청하기" />
 
                     </LinearLayout>
+
 
                 </LinearLayout>
 
