@@ -80,88 +80,83 @@
     </LinearLayout>
 
     <!--픽업 요청서 레이아웃 -->
-
     <LinearLayout
         android:name=".RequestLayout"
-
-    <FrameLayout
         android:id="@+id/page"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:background="@drawable/button_shape"
         android:orientation="vertical"
         android:visibility="invisible">
 
+        <FrameLayout
+            android:clickable="true"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:layout_width="match_parent"
+            android:layout_height="70dp">
+
+            <TextView
+                android:layout_marginTop="20dp"
+                android:id="@+id/close_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="18dp"
+                android:text="X"
+                android:textColor="@color/black"
+                android:textSize="20dp" />
+
+            <TextView
+                android:layout_marginTop="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:text="픽업 요청서"
+                android:textAlignment="center"
+                android:textSize="20dp" />
+        </FrameLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:layout_marginTop="-10dp"
+            android:background="#DDDDDD" />
+
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="380dp"
+            android:layout_gravity="center"
             android:layout_height="match_parent"
-            android:background="@drawable/button_shape"
-            android:orientation="vertical">
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:clickable="true"
-                android:focusable="true"
-                android:focusableInTouchMode="true">
-
-
-                <TextView
-                    android:id="@+id/close_btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="18dp"
-                    android:layout_marginTop="20dp"
-                    android:text="X"
-                    android:textColor="@color/black"
-                    android:textSize="20dp" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="15dp"
-                    android:text="픽업 요청서"
-                    android:textAlignment="center"
-                    android:textSize="20dp" />
-            </FrameLayout>
+            android:fillViewport="true">
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="5dp"
-                android:layout_marginTop="-10dp"
-                android:background="#DDDDDD" />
-
-
-            <androidx.core.widget.NestedScrollView
+                android:layout_marginTop="150dp"
                 android:layout_width="380dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:fillViewport="true">
+                android:orientation="vertical">
 
 
                 <LinearLayout
-                    android:layout_width="380dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="150dp"
+                    android:layout_marginTop="20dp"
                     android:orientation="vertical">
+
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="110dp"
-                        android:text="사용 유형 선택"
+                        android:layout_marginTop="15dp"
+                        android:text="물품 정보"
                         android:textColor="@color/black"
                         android:textSize="20dp" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp"
+                        android:layout_marginTop="20dp"
                         android:orientation="horizontal">
-
 
                         <TextView
 
@@ -174,30 +169,9 @@
                             android:layout_width="200dp"
                             android:layout_height="wrap_content" />
 
-                        <RadioGroup
-                            android:id="@+id/radioGroup"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:orientation="horizontal">
-
-                            <RadioButton
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="보내시는 분" />
-
-                            <RadioButton
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="받으시는 분" />
-                        </RadioGroup>
-
-
                     </LinearLayout>
 
                     <LinearLayout
-
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -244,19 +218,15 @@
                         android:textColor="@color/black"
                         android:textSize="20dp"/>
                     <LinearLayout
-
-
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
-                        android:descendantFocusability="blocksDescendants"
                         android:orientation="horizontal">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="상대방도 겸사겸사의 회원이신가요?" />
-
+                            android:text="주소 :" />
 
                         <EditText
                             android:id="@+id/pick_up_item_addr_start"
@@ -295,14 +265,9 @@
                         <EditText
                             android:id="@+id/pick_up_item_addr_end"
                             android:layout_width="200dp"
-
-                        <CheckBox
-                            android:layout_width="wrap_content"
-
                             android:layout_height="wrap_content" />
 
                     </LinearLayout>
-
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -312,7 +277,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="상대방 인증코드" />
+                            android:text="상세주소" />
 
                         <EditText
                             android:id="@+id/pick_up_item_addr_end_detail"
@@ -320,89 +285,33 @@
                             android:layout_height="wrap_content" />
 
                     </LinearLayout>
-
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
-                        android:orientation="vertical">
-
+                        android:orientation="horizontal">
 
                         <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="15dp"
-                            android:text="물품 정보"
-                            android:textColor="@color/black"
-                            android:textSize="20dp" />
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="20dp"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="물품 이름" />
-
-                            <EditText
-                                android:layout_width="200dp"
-                                android:layout_height="wrap_content" />
-
-                        </LinearLayout>
-
-                        <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginTop="20dp"
-                            android:background="@drawable/btn_edge">
+                            android:text="요청사항" />
 
-                            <ImageView
-                                android:layout_width="250dp"
-                                android:layout_height="250dp"
-                                android:layout_gravity="center"
-                                android:scaleX="0.5"
-                                android:scaleY="0.5"
-                                android:src="@drawable/gsgs_logo" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical">
-
-h_fix
                         <EditText
                             android:id="@+id/pick_up_item_request"
                             android:layout_width="200dp"
                             android:layout_height="wrap_content" />
 
-                            <Button
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:background="@drawable/button_shape"
-                                android:text="사진 등록" />
-
-
-                        </LinearLayout>
                     </LinearLayout>
-
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
-                        android:orientation="vertical">
+                        android:orientation="horizontal">
 
-                        <Button
-                            android:id="@+id/find_addr"
+                        <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="주소찾기" />
-
+                            android:text="예상 비용" />
 
                         <EditText
                             android:id="@+id/pick_up_item_cost"
@@ -418,142 +327,15 @@ h_fix
                         android:layout_height="wrap_content"
                         android:text="픽업 요청하기"/>
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="15dp"
-                            android:text="주소 입력"
-                            android:textColor="@color/black"
-                            android:textSize="20dp" />
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="20dp"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="주소 :" />
-
-                            <EditText
-                                android:id="@+id/addr_1"
-                                android:layout_width="200dp"
-                                android:layout_height="wrap_content" />
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="20dp"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="상세주소" />
-
-                            <EditText
-                                android:layout_width="200dp"
-                                android:layout_height="wrap_content" />
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="20dp"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="요청사항" />
-
-                            <EditText
-                                android:layout_width="200dp"
-                                android:layout_height="wrap_content" />
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="20dp"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="예상 비용" />
-
-                            <EditText
-                                android:layout_width="200dp"
-                                android:layout_height="wrap_content" />
-
-                        </LinearLayout>
-
-                        <Button
-                            android:id="@+id/pl_pick"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginTop="30dp"
-                            android:text="픽업 요청하기" />
-
-                    </LinearLayout>
-
-
                 </LinearLayout>
 
+            </LinearLayout>
 
-            </androidx.core.widget.NestedScrollView>
+
+        </androidx.core.widget.NestedScrollView>
 
 
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/web_back"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#A9535353"
-            android:clickable="true"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:orientation="horizontal"
-            android:visibility="invisible" />
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:tools="http://schemas.android.com/tools"
-            android:id="@+id/web_layout"
-            android:layout_width="390dp"
-            android:layout_height="500dp"
-            android:layout_gravity="center"
-            android:background="@drawable/btn_edge"
-            android:visibility="invisible">
-
-            <WebView
-                android:id="@+id/webView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true" />
-
-            <TextView
-                android:id="@+id/txt_address"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="받은 주소"
-                android:visibility="invisible"
-                tools:ignore="MissingConstraints" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </FrameLayout>
+    </LinearLayout>
 
 </FrameLayout>
-
 

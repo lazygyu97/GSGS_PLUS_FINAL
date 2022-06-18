@@ -6,4 +6,4 @@ data class pick_list(
     val addr_end: String,
     val request_cost : String,
     val document_id : String,
-    )
+)

@@ -59,7 +59,6 @@ class HomeFragment_2 : Fragment() {
         val pickList = ArrayList<pick_list>()
 
 
-
         //픽업요청서 띄우기(조건 플레그 존재)
         docRef.whereEqualTo("pick_up_check_flag", "0").get()
             .addOnSuccessListener { documents ->
@@ -70,14 +69,10 @@ class HomeFragment_2 : Fragment() {
                     Log.d("addrStart:", document.data["pick_up_item_addr_start"].toString())
                     Log.d("addrEnd:", document.data["pick_up_item_addr_end"].toString())
 
-
                     val start_addr: String = document.data["pick_up_item_addr_start"].toString()
                     val end_addr: String = document.data["pick_up_item_addr_end"].toString()
                     val request_cost: String = document.data["pick_up_item_cost"].toString()
                     val document_id: String = document.id
-
-
-
 
                     pickList.apply {
 
@@ -137,6 +132,7 @@ class HomeFragment_2 : Fragment() {
                         docRef.document(accept_doc_id).update("pick_up_check_flag", "1")
 
                         val intent = Intent(context, BeforePickUpActivity::class.java)
+                        intent.putExtra("Data",accept_doc_id)
                         startActivity(intent)
                     }
 
