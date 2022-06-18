@@ -19,7 +19,6 @@ class ChatUserAdapter(val context: Context?, val ChatUserList: ArrayList<ChatUse
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
         val view: View = LayoutInflater.from(context).inflate(R.layout.chat_user_layout,parent,false)
-        Log.e("TAG","ChatUserAdapter에서 CreateViewHolder 시작")
         return UserViewHolder(view)
     }
 
