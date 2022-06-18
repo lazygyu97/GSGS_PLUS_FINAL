@@ -48,9 +48,9 @@ class HomeFragment_2 : Fragment() {
         val animation_2 = AnimationUtils.loadAnimation(context, R.anim.translate_down)
         val pickList = ArrayList<pick_list>()
 
-
+        val d="dkdkd"
         pickList.apply {
-            add(pick_list("인천 계양구", "서울 강북구"))
+            add(pick_list(d, "서울 강북구"))
             add(pick_list("인천 서구", "서울 강서구"))
             add(pick_list("인천 남구", "서울 마포구"))
         }
