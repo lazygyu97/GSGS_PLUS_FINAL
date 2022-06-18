@@ -39,6 +39,8 @@ android {
 
 dependencies {
 
+    
+
     //카카오 지도 api 의존성 추가
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation files('libs/libDaumMapAndroid.jar')
