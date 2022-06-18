@@ -3,10 +3,14 @@ package com.example.gsgs_plus_final.main
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
+import android.webkit.JavascriptInterface
+import android.webkit.WebView
 import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -54,6 +58,44 @@ class HomeFragment_1 : Fragment() {
         val close_btn = v.findViewById<TextView>(R.id.close_btn)
         val pl_pick = v.findViewById<Button>(R.id.pick_up_item_requestBtn)
 
+        val pick_up_item_name = v.findViewById<EditText>(R.id.pick_up_item_name)
+//      val pick_up_item_img = v.findViewById<ImageView>(R.id.pick_up_item_img)
+        val pick_up_item_addr_start = v.findViewById<EditText>(R.id.pick_up_item_addr_start)
+        val pick_up_item_addr_start_detail = v.findViewById<EditText>(R.id.pick_up_item_addr_start_detail)
+        val pick_up_item_addr_end = v.findViewById<EditText>(R.id.pick_up_item_addr_end)
+        val pick_up_item_addr_end_detaol = v.findViewById<EditText>(R.id.pick_up_item_addr_end_detail)
+        val pick_up_item_request = v.findViewById<EditText>(R.id.pick_up_item_request)
+        val pick_up_item_cost = v.findViewById<EditText>(R.id.pick_up_item_cost)
+        val web_back=v.findViewById<LinearLayout>(R.id.web_back)
+        val web_layout=v.findViewById<ConstraintLayout>(R.id.web_layout)
+        val find_addr_1=v.findViewById<Button>(R.id.find_addr_1)
+        val find_addr_2=v.findViewById<Button>(R.id.find_addr_2)
+        val webview=v.findViewById<WebView>(R.id.webView)
+
+        var webView: WebView? = null
+
+        val handler=Handler()
+        class WebAppInterface{
+            @JavascriptInterface
+            fun setAddress(arg1: String, arg2: String, arg3: String) {
+                handler.post{
+                    if (pick_up_item_addr_start.text.toString().length<3){
+                        Log.d("여기봐",pick_up_item_addr_start.text.toString().length.toString())
+                        web_back.visibility = View.GONE
+                        web_layout.visibility = View.GONE
+                        pick_up_item_addr_start.setText(String.format("(%s) %s %s", arg1, arg2, arg3))
+                    }else{
+                        web_back.visibility = View.GONE
+                        web_layout.visibility = View.GONE
+                        pick_up_item_addr_end.setText(String.format("(%s) %s %s", arg1, arg2, arg3))
+                    }
+
+                }
+
+            }
+        }
+
+
         pick_up_btn.setOnClickListener {
             pick_up_btn.visibility=View.INVISIBLE
             mainAct.HideBottomNavi(true)
@@ -69,17 +111,6 @@ class HomeFragment_1 : Fragment() {
         }
 
         pl_pick.setOnClickListener {
-
-            val pick_up_item_name = v.findViewById<EditText>(R.id.pick_up_item_name)
-//            val pick_up_item_img = v.findViewById<ImageView>(R.id.pick_up_item_img)
-            val pick_up_item_addr_start = v.findViewById<EditText>(R.id.pick_up_item_addr_start)
-            val pick_up_item_addr_start_detail = v.findViewById<EditText>(R.id.pick_up_item_addr_start_detail)
-            val pick_up_item_addr_end = v.findViewById<EditText>(R.id.pick_up_item_addr_end)
-            val pick_up_item_addr_end_detaol = v.findViewById<EditText>(R.id.pick_up_item_addr_end_detail)
-            val pick_up_item_request = v.findViewById<EditText>(R.id.pick_up_item_request)
-            val pick_up_item_cost = v.findViewById<EditText>(R.id.pick_up_item_cost)
-
-
 
             if(pick_up_item_name.text.toString().isNullOrBlank()){
                 Toast.makeText(context,"배송요청 물품이름을 입력하세요!",Toast.LENGTH_LONG).show()
@@ -118,6 +149,45 @@ class HomeFragment_1 : Fragment() {
                 startActivity(intent)
             }
         }
+        find_addr_1.setOnClickListener {
+
+            web_back.visibility = View.VISIBLE
+            web_layout.visibility = View.VISIBLE
+            pick_up_item_addr_start.setText("")
+            webView = webview
+            WebView.setWebContentsDebuggingEnabled(true)
+            webview.addJavascriptInterface(WebAppInterface(), "gsgs")
+
+            webView!!.apply {
+                settings.javaScriptEnabled = true
+                settings.javaScriptCanOpenWindowsAutomatically = true
+                settings.setSupportMultipleWindows(true)
+            }
+            webView!!.loadUrl("https://gsgsaddr.web.app")
+        }
+
+        find_addr_2.setOnClickListener {
+
+            web_back.visibility = View.VISIBLE
+            web_layout.visibility = View.VISIBLE
+            pick_up_item_addr_end.setText("")
+            webView = webview
+            WebView.setWebContentsDebuggingEnabled(true)
+            webview.addJavascriptInterface(WebAppInterface(), "gsgs")
+
+            webView!!.apply {
+                settings.javaScriptEnabled = true
+                settings.javaScriptCanOpenWindowsAutomatically = true
+                settings.setSupportMultipleWindows(true)
+            }
+            webView!!.loadUrl("https://gsgsaddr.web.app")
+        }
+
+        web_back.setOnClickListener {
+            web_back.visibility = View.GONE
+            web_layout.visibility = View.GONE
+        }
+
 
 
         // Inflate the layout for this fragment
