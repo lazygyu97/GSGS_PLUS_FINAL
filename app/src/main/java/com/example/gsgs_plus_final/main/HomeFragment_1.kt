@@ -1,60 +1,110 @@
 package com.example.gsgs_plus_final.main
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
-import android.widget.Button
-import android.widget.LinearLayout
-import android.widget.TextView
+import android.webkit.JavascriptInterface
+import android.webkit.WebView
+import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import com.example.gsgs_plus_final.R
 import com.example.gsgs_plus_final.pickUp.BeforePickUpActivity
 import com.example.gsgs_plus_final.request.DoingRequestActivity
+import com.google.firebase.firestore.remote.ConnectivityMonitor
 import net.daum.mf.map.api.MapView
+import java.lang.reflect.Array.get
 
 class HomeFragment_1 : Fragment() {
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
 
         val v = inflater.inflate(R.layout.fragment_home_1, container, false)
         val mainAct = activity as MainActivity
 
-//        val mapView=v.findViewById<ConstraintLayout>(R.id.kakaoMapView)
-//        val map = MapView(activity)
-//        mapView.addView(map)
+        var webView: WebView? = null
+
+        //val mapView=v.findViewById<ConstraintLayout>(R.id.kakaoMapView)
+        //val map = MapView(activity)
+        //mapView.addView(map)
 
 
-        val animation_1 = AnimationUtils.loadAnimation(context,R.anim.translate_up)
-        val animation_2 = AnimationUtils.loadAnimation(context,R.anim.translate_down)
+        val animation_1 = AnimationUtils.loadAnimation(context, R.anim.translate_up)
+        val animation_2 = AnimationUtils.loadAnimation(context, R.anim.translate_down)
 
-        val page = v.findViewById<LinearLayout>(R.id.page)
-        val pick_up_btn =v.findViewById<Button>(R.id.pick_up_btn)
+        val webview = v.findViewById<WebView>(R.id.webView)
+        val web_back = v.findViewById<LinearLayout>(R.id.web_back)
+        val web_layout = v.findViewById<ConstraintLayout>(R.id.web_layout)
+
+        val page = v.findViewById<FrameLayout>(R.id.page)
+        val pick_up_btn = v.findViewById<Button>(R.id.pick_up_btn)
         val close_btn = v.findViewById<TextView>(R.id.close_btn)
         val pl_pick = v.findViewById<Button>(R.id.pl_pick)
+        val find_addr = v.findViewById<Button>(R.id.find_addr)
+
+        class WebAppInterface{
+
+            /** Show a toast from the web page  */
+            @JavascriptInterface
+            fun setAddress(arg1:String,arg2:String,arg3:String) {
+                v.findViewById<EditText>(R.id.addr_1).setText(String.format("(%s) %s %s",arg1,arg2,arg3))
+            }
+        }
+
 
         pick_up_btn.setOnClickListener {
-            pick_up_btn.visibility=View.INVISIBLE
+            pick_up_btn.visibility = View.INVISIBLE
             mainAct.HideBottomNavi(true)
             page.startAnimation(animation_1)
-            page.visibility=View.VISIBLE
+            page.visibility = View.VISIBLE
         }
         close_btn.setOnClickListener {
-            pick_up_btn.visibility=View.VISIBLE
+            pick_up_btn.visibility = View.VISIBLE
 
             mainAct.HideBottomNavi(false)
             page.startAnimation(animation_2)
-            page.visibility=View.INVISIBLE
+            page.visibility = View.INVISIBLE
         }
+
 
         pl_pick.setOnClickListener {
             activity?.let {
+
                 val intent = Intent(context, DoingRequestActivity::class.java)
+
                 startActivity(intent)
             }
+        }
+
+        find_addr.setOnClickListener {
+
+            web_back.visibility=View.VISIBLE
+            web_layout.visibility=View.VISIBLE
+
+            webView = webview
+            WebView.setWebContentsDebuggingEnabled(true)
+            webview.addJavascriptInterface(WebAppInterface(),"gsgs")
+
+            webView!!.apply {
+                settings.javaScriptEnabled = true
+                settings.javaScriptCanOpenWindowsAutomatically = true
+                settings.setSupportMultipleWindows(true)
+            }
+            webView!!.loadUrl("https://gsgsaddr.web.app")
+        }
+
+        web_back.setOnClickListener{
+            web_back.visibility=View.GONE
+            web_layout.visibility=View.GONE
         }
 
 
@@ -62,46 +112,5 @@ class HomeFragment_1 : Fragment() {
         return v
 
 
-
     }
 }
-//     다른 액티비티 및 프래그먼트에서 바인딩을 사용하지 않았기 때문에 통일함
-//    // 바인딩 객체 타입에 ?를 붙여서 null을 허용 해줘야한다. ( onDestroy 될 때 완벽하게 제거를 하기위해 )
-//    private var mBinding: FragmentHome1Binding? = null
-//    // 매번 null 체크를 할 필요 없이 편의성을 위해 바인딩 변수 재 선언
-//    private val binding get() = mBinding!!
-
-//        mBinding= FragmentHome1Binding.inflate(inflater,container,false)
-//        val mainAct = activity as MainActivity
-//
-//
-//        //test할 때 밑에 세줄 주석
-////        val map=MapView(activity)
-////        val mapView=binding.kakaoMapView
-////        mapView.addView(map)
-//
-//
-//        //픽업요청서 애니메이션
-//        val animation_1 = AnimationUtils.loadAnimation(context,R.anim.translate_up)
-//        val animation_2 = AnimationUtils.loadAnimation(context,R.anim.translate_down)
-//
-//        val pick_up_btn = binding.pickUpBtn
-//        val page = binding.page
-//        val close_btn = binding.closeBtn
-//
-//        pick_up_btn.setOnClickListener {
-//
-//            val currentUser = Firebase.auth.currentUser
-//            pick_up_btn.visibility=View.INVISIBLE
-//            mainAct.HideBottomNavi(true)
-//            page.startAnimation(animation_1)
-//            page.visibility=View.VISIBLE
-//        }
-//        close_btn.setOnClickListener {
-//            pick_up_btn.visibility=View.VISIBLE
-//
-//            mainAct.HideBottomNavi(false)
-//            page.startAnimation(animation_2)
-//            page.visibility=View.INVISIBLE
-//        }
-//        return binding.root
