@@ -3,26 +3,39 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/user/AndroidStudioProjects/GSGS_PLUS_FINAL/app/src/main/res/drawable-v24/btn_backgound.xml" value="0.134" />
-        <entry key="..\:/Users/user/AndroidStudioProjects/GSGS_PLUS_FINAL/app/src/main/res/drawable-v24/edt_background.xml" value="0.134" />
-        <entry key="..\:/Users/user/AndroidStudioProjects/GSGS_PLUS_FINAL/app/src/main/res/drawable-v24/message_box_background.xml" value="0.134" />
-        <entry key="..\:/Users/user/AndroidStudioProjects/GSGS_PLUS_FINAL/app/src/main/res/layout/activity_chat.xml" value="0.15121580547112462" />
-        <entry key="..\:/Users/user/AndroidStudioProjects/GSGS_PLUS_FINAL/app/src/main/res/layout/activity_chatting.xml" value="0.2669706180344478" />
-        <entry key="..\:/Users/user/AndroidStudioProjects/GSGS_PLUS_FINAL/app/src/main/res/layout/activity_doing_pick_up.xml" value="0.2669706180344478" />
-        <entry key="..\:/Users/user/AndroidStudioProjects/GSGS_PLUS_FINAL/app/src/main/res/layout/activity_login.xml" value="0.20555555555555555" />
-        <entry key="..\:/Users/user/AndroidStudioProjects/GSGS_PLUS_FINAL/app/src/main/res/layout/activity_main.xml" value="0.15070921985815602" />
-        <entry key="..\:/Users/user/AndroidStudioProjects/GSGS_PLUS_FINAL/app/src/main/res/layout/chat_receive.xml" value="0.26646403242147926" />
-        <entry key="..\:/Users/user/AndroidStudioProjects/GSGS_PLUS_FINAL/app/src/main/res/layout/chat_sent.xml" value="0.2669706180344478" />
-        <entry key="..\:/Users/user/AndroidStudioProjects/GSGS_PLUS_FINAL/app/src/main/res/layout/chat_user_layout.xml" value="0.16666666666666666" />
-        <entry key="..\:/Users/user/AndroidStudioProjects/GSGS_PLUS_FINAL/app/src/main/res/layout/chatting_user_layout.xml" value="0.2669706180344478" />
-        <entry key="..\:/Users/user/AndroidStudioProjects/GSGS_PLUS_FINAL/app/src/main/res/layout/fragment_chat.xml" value="0.2669706180344478" />
-        <entry key="..\:/Users/user/AndroidStudioProjects/GSGS_PLUS_FINAL/app/src/main/res/layout/fragment_chatting.xml" value="0.2669706180344478" />
-        <entry key="..\:/Users/user/AndroidStudioProjects/GSGS_PLUS_FINAL/app/src/main/res/layout/fragment_home_1.xml" value="0.2669706180344478" />
-        <entry key="..\:/Users/user/AndroidStudioProjects/GSGS_PLUS_FINAL/app/src/main/res/layout/fragment_home_2.xml" value="0.2669706180344478" />
-        <entry key="..\:/Users/user/AndroidStudioProjects/GSGS_PLUS_FINAL/app/src/main/res/layout/fragment_use_list.xml" value="0.15121580547112462" />
-        <entry key="..\:/Users/user/AndroidStudioProjects/GSGS_PLUS_FINAL/app/src/main/res/layout/fragment_user.xml" value="0.2669706180344478" />
-        <entry key="..\:/Users/user/AndroidStudioProjects/GSGS_PLUS_FINAL/app/src/main/res/layout/pickup_list_item.xml" value="0.2669706180344478" />
-        <entry key="..\:/Users/user/AndroidStudioProjects/GSGS_PLUS_FINAL/app/src/main/res/layout/user_layout.xml" value="0.2669706180344478" />
+        <entry key="..\:/Users/sog31/AndroidStudioProjects/GSGS_PLUS_FINAL/app/src/main/res/layout/activity_before_pick_up.xml" value="0.38645833333333335" />
+        <entry key="..\:/Users/sog31/AndroidStudioProjects/GSGS_PLUS_FINAL/app/src/main/res/layout/activity_chat.xml" value="0.38645833333333335" />
+        <entry key="..\:/Users/sog31/AndroidStudioProjects/GSGS_PLUS_FINAL/app/src/main/res/layout/activity_doing_pick_up.xml" value="0.38645833333333335" />
+        <entry key="..\:/Users/sog31/AndroidStudioProjects/GSGS_PLUS_FINAL/app/src/main/res/layout/activity_doing_request.xml" value="0.38645833333333335" />
+        <entry key="..\:/Users/sog31/AndroidStudioProjects/GSGS_PLUS_FINAL/app/src/main/res/layout/activity_fail_request.xml" value="0.38645833333333335" />
+        <entry key="..\:/Users/sog31/AndroidStudioProjects/GSGS_PLUS_FINAL/app/src/main/res/layout/activity_find.xml" value="0.38645833333333335" />
+        <entry key="..\:/Users/sog31/AndroidStudioProjects/GSGS_PLUS_FINAL/app/src/main/res/layout/activity_finish_pick_up.xml" value="0.38645833333333335" />
+        <entry key="..\:/Users/sog31/AndroidStudioProjects/GSGS_PLUS_FINAL/app/src/main/res/layout/activity_id_find_finish.xml" value="0.38645833333333335" />
+        <entry key="..\:/Users/sog31/AndroidStudioProjects/GSGS_PLUS_FINAL/app/src/main/res/layout/activity_join.xml" value="0.1879432624113475" />
+        <entry key="..\:/Users/sog31/AndroidStudioProjects/GSGS_PLUS_FINAL/app/src/main/res/layout/activity_join_finsh.xml" value="0.38645833333333335" />
+        <entry key="..\:/Users/sog31/AndroidStudioProjects/GSGS_PLUS_FINAL/app/src/main/res/layout/activity_login.xml" value="0.1879432624113475" />
+        <entry key="..\:/Users/sog31/AndroidStudioProjects/GSGS_PLUS_FINAL/app/src/main/res/layout/activity_main.xml" value="0.38645833333333335" />
+        <entry key="..\:/Users/sog31/AndroidStudioProjects/GSGS_PLUS_FINAL/app/src/main/res/layout/activity_picker_join.xml" value="0.33" />
+        <entry key="..\:/Users/sog31/AndroidStudioProjects/GSGS_PLUS_FINAL/app/src/main/res/layout/activity_picker_join_addr.xml" value="0.296875" />
+        <entry key="..\:/Users/sog31/AndroidStudioProjects/GSGS_PLUS_FINAL/app/src/main/res/layout/activity_picker_join_study.xml" value="0.296875" />
+        <entry key="..\:/Users/sog31/AndroidStudioProjects/GSGS_PLUS_FINAL/app/src/main/res/layout/activity_pw_find_finish.xml" value="0.38645833333333335" />
+        <entry key="..\:/Users/sog31/AndroidStudioProjects/GSGS_PLUS_FINAL/app/src/main/res/layout/activity_splash.xml" value="0.38645833333333335" />
+        <entry key="..\:/Users/sog31/AndroidStudioProjects/GSGS_PLUS_FINAL/app/src/main/res/layout/activity_success_request.xml" value="0.38645833333333335" />
+        <entry key="..\:/Users/sog31/AndroidStudioProjects/GSGS_PLUS_FINAL/app/src/main/res/layout/chat_receive.xml" value="0.38645833333333335" />
+        <entry key="..\:/Users/sog31/AndroidStudioProjects/GSGS_PLUS_FINAL/app/src/main/res/layout/chat_sent.xml" value="0.38645833333333335" />
+        <entry key="..\:/Users/sog31/AndroidStudioProjects/GSGS_PLUS_FINAL/app/src/main/res/layout/chat_user_layout.xml" value="0.38645833333333335" />
+        <entry key="..\:/Users/sog31/AndroidStudioProjects/GSGS_PLUS_FINAL/app/src/main/res/layout/fragment_chat.xml" value="0.38645833333333335" />
+        <entry key="..\:/Users/sog31/AndroidStudioProjects/GSGS_PLUS_FINAL/app/src/main/res/layout/fragment_home.xml" value="0.38645833333333335" />
+        <entry key="..\:/Users/sog31/AndroidStudioProjects/GSGS_PLUS_FINAL/app/src/main/res/layout/fragment_home_1.xml" value="0.33" />
+        <entry key="..\:/Users/sog31/AndroidStudioProjects/GSGS_PLUS_FINAL/app/src/main/res/layout/fragment_home_2.xml" value="0.22" />
+        <entry key="..\:/Users/sog31/AndroidStudioProjects/GSGS_PLUS_FINAL/app/src/main/res/layout/fragment_id_find.xml" value="0.38645833333333335" />
+        <entry key="..\:/Users/sog31/AndroidStudioProjects/GSGS_PLUS_FINAL/app/src/main/res/layout/fragment_notice.xml" value="0.38645833333333335" />
+        <entry key="..\:/Users/sog31/AndroidStudioProjects/GSGS_PLUS_FINAL/app/src/main/res/layout/fragment_pw_find.xml" value="0.38645833333333335" />
+        <entry key="..\:/Users/sog31/AndroidStudioProjects/GSGS_PLUS_FINAL/app/src/main/res/layout/fragment_use_list.xml" value="0.38645833333333335" />
+        <entry key="..\:/Users/sog31/AndroidStudioProjects/GSGS_PLUS_FINAL/app/src/main/res/layout/fragment_user.xml" value="0.38645833333333335" />
+        <entry key="..\:/Users/sog31/AndroidStudioProjects/GSGS_PLUS_FINAL/app/src/main/res/layout/picker_join_addr_insert.xml" value="0.29583333333333334" />
+        <entry key="..\:/Users/sog31/AndroidStudioProjects/GSGS_PLUS_FINAL/app/src/main/res/layout/pickup_list_item.xml" value="0.38645833333333335" />
+        <entry key="..\:/Users/sog31/AndroidStudioProjects/GSGS_PLUS_FINAL/app/src/main/res/menu/bottom_menu.xml" value="0.38645833333333335" />
         <entry key="app/src/main/res/drawable-v24/pick_up.xml" value="0.153" />
         <entry key="app/src/main/res/drawable/pickup_list_item.xml" value="0.301" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.5156230953568263" />
