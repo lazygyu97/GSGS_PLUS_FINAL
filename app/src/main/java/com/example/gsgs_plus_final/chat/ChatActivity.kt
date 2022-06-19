@@ -20,12 +20,14 @@ class ChatActivity : AppCompatActivity() {
 
     var receiverRoom: String?= null
     var senderRoom: String?= null
+    override fun onBackPressed() {
+        super.onBackPressed()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(com.example.gsgs_plus_final.R.layout.activity_chat)
 
-        val name = intent.getStringExtra("name")
         val receiverUid = intent. getStringExtra("uid")
         val senderUid = FirebaseAuth.getInstance().currentUser?.uid
         mDbRef = FirebaseDatabase.getInstance().reference
@@ -34,7 +36,7 @@ class ChatActivity : AppCompatActivity() {
         senderRoom=receiverUid + senderUid
         receiverRoom =senderUid + receiverUid
 
-        supportActionBar?.title = name
+
 
         chatRecyclerView = findViewById(com.example.gsgs_plus_final.R.id.chatRecyclerView)
         messageBox=findViewById(com.example.gsgs_plus_final.R.id.messageBox)

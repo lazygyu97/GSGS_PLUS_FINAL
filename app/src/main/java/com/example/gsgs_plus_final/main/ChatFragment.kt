@@ -45,19 +45,18 @@ class ChatFragment : Fragment() {
         userRecyclerView.adapter=adapter
 
 
-        //만들어진 방의 목록 가지고 온다.
         mDbRef.child("ChatList").addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
 
                 ChatUserList.clear()
 
-                Log.d("여기봐 :::", snapshot.children.toString())
+               // Log.d("여기봐 :::", snapshot.child"ChatList".value)
 
                 for(postSnapshot in snapshot.children){
 
                     val currentUser= postSnapshot.getValue(ChatUser::class.java)
 
-                    if(mAuth.currentUser?.uid != currentUser?.uid_1){
+                    if(mAuth.currentUser?.uid != currentUser?.uid){
                         ChatUserList.add(currentUser!!)
                         //자신의 아이디는 목록에서 제거
                     }

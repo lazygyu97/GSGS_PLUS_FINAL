@@ -39,7 +39,7 @@ class SuccessRequestActivity : AppCompatActivity() {
 
         val start = intent.getStringExtra("start")
         val end = intent.getStringExtra("end")
-        val name = intent.getStringExtra("name")
+        val time = intent.getStringExtra("name")
         val id = intent.getStringExtra("id")
 
         val txt_start = findViewById<TextView>(R.id.start)
@@ -48,17 +48,17 @@ class SuccessRequestActivity : AppCompatActivity() {
 
         txt_start.setText(start.toString())
         txt_end.setText(end.toString())
-
+        //1이 받은 사람, 2가 피커
         val docRef3 = db.collection("pick_up_request")
 
-        val pick_data = docRef3.document(name.toString())
+        val pick_data = docRef3.document(time.toString())
         pick_data.get().addOnSuccessListener { document ->
             if (document != null) {
                 Log.d(TAG, "DocumentSnapshot data: ${document.data}")
-
                 document["uid"].toString()
                 document["uid_2"].toString()
-                addUserToDatabase(name.toString(),document["uid"].toString(),document["uid_2"].toString())
+                addUserToDatabase(time.toString(),document["uid"].toString())
+                addUserToDatabase(time.toString(),document["uid_2"].toString())
 
             } else {
                 Log.d(TAG, "No such document")
@@ -78,9 +78,9 @@ class SuccessRequestActivity : AppCompatActivity() {
 
     }
 
-    private fun addUserToDatabase(name:String, uid_1: String, uid_2: String) {
+    private fun addUserToDatabase(time:String,  uid: String) {
         mDbRef = FirebaseDatabase.getInstance().getReference()
-        mDbRef.child("ChatList").child(name).setValue(ChatUser(uid_1, uid_2))
+        mDbRef.child("ChatList").child(time).setValue(ChatUser(uid))
 
     }
 }
