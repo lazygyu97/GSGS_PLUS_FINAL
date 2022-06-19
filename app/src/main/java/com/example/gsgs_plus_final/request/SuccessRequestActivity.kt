@@ -23,7 +23,7 @@ class SuccessRequestActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
 
     override fun onBackPressed() {
-       // super.onBackPressed()
+        // super.onBackPressed()
     }
 
     fun Chat(arrayList: java.util.ArrayList<*>) {
@@ -49,22 +49,16 @@ class SuccessRequestActivity : AppCompatActivity() {
         txt_start.setText(start.toString())
         txt_end.setText(end.toString())
 
-        val docRef=db.collection("users")
-        val docRef2=db.collection("pickers")
+        val docRef3 = db.collection("pick_up_request")
 
-        val user_data = docRef.document(id.toString())
-
-        user_data.get().addOnSuccessListener {
-            document->
+        val pick_data = docRef3.document(name.toString())
+        pick_data.get().addOnSuccessListener { document ->
             if (document != null) {
                 Log.d(TAG, "DocumentSnapshot data: ${document.data}")
-                val pick_up_list=document["pick_up_list"] as ArrayList<*>
-                Log.d(TAG, "pick_up_list: ${pick_up_list[0]}")
-                for(i in pick_up_list){
 
-                    docRef2.document().get()
-                    Log.d(TAG, "pick_up_list!!! $i")
-                }
+                document["uid"].toString()
+                document["uid_2"].toString()
+                addUserToDatabase(name.toString(),document["uid"].toString(),document["uid_2"].toString())
 
             } else {
                 Log.d(TAG, "No such document")
@@ -74,13 +68,8 @@ class SuccessRequestActivity : AppCompatActivity() {
                 Log.d(TAG, "get failed with ", exception)
             }
 
-
-        //실시간 디비에 이름하고 uid 추가
-        //addUserToDatabase(user.name,auth.currentUser?.uid!!)
-
-
         btn_back.setOnClickListener {
-            Toast.makeText(this,"홈 화면으로 이동합니다!",Toast.LENGTH_LONG).show()
+            Toast.makeText(this, "홈 화면으로 이동합니다!", Toast.LENGTH_LONG).show()
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
 
@@ -89,9 +78,9 @@ class SuccessRequestActivity : AppCompatActivity() {
 
     }
 
-    private fun addUserToDatabase(name: String,uid: String){
-        mDbRef= FirebaseDatabase.getInstance().getReference()
-        mDbRef.child("user").child(uid).setValue(ChatUser(name,uid))
+    private fun addUserToDatabase(name:String, uid_1: String, uid_2: String) {
+        mDbRef = FirebaseDatabase.getInstance().getReference()
+        mDbRef.child("ChatList").child(name).setValue(ChatUser(uid_1, uid_2))
 
     }
 }

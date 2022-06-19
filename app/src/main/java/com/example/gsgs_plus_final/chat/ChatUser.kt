@@ -1,14 +1,14 @@
 package com.example.gsgs_plus_final.chat
 
 class ChatUser {
-    var name: String?=null
-    var uid: String?=null
+    var uid_1: String?=null
+    var uid_2: String?=null
 
 
     constructor(){}
     constructor(name:String?,uid:String?){
-        this.name = name
-        this.uid = uid
+        this.uid_1 = uid_1
+        this.uid_2 = uid_2
     }
 
 }

@@ -1,6 +1,7 @@
 package com.example.gsgs_plus_final.main
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -33,8 +34,10 @@ class ChatFragment : Fragment() {
         mAuth= FirebaseAuth.getInstance()
         mDbRef= FirebaseDatabase.getInstance().getReference()
 
+        //adapter
         ChatUserList= ArrayList()
         adapter= ChatUserAdapter(context,ChatUserList)
+
 
         userRecyclerView=v.findViewById(R.id.ChatUserRecyclerView)
 
@@ -42,16 +45,19 @@ class ChatFragment : Fragment() {
         userRecyclerView.adapter=adapter
 
 
-        //가입된 회원들을 목록으로 불러오는 로직
-        mDbRef.child("user").addValueEventListener(object : ValueEventListener {
+        //만들어진 방의 목록 가지고 온다.
+        mDbRef.child("ChatList").addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
 
                 ChatUserList.clear()
+
+                Log.d("여기봐 :::", snapshot.children.toString())
+
                 for(postSnapshot in snapshot.children){
 
                     val currentUser= postSnapshot.getValue(ChatUser::class.java)
 
-                    if(mAuth.currentUser?.uid != currentUser?.uid){
+                    if(mAuth.currentUser?.uid != currentUser?.uid_1){
                         ChatUserList.add(currentUser!!)
                         //자신의 아이디는 목록에서 제거
                     }
