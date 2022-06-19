@@ -1,5 +1,3 @@
-package com.example.gsgs_plus_final.adapter
-
 import android.content.Context
 import android.content.Intent
 import android.util.Log
@@ -10,12 +8,15 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gsgs_plus_final.R
 import com.example.gsgs_plus_final.chat.ChatActivity
-import com.example.gsgs_plus_final.chat.ChatUser
 import com.example.gsgs_plus_final.vo.User
+import com.google.firebase.auth.FirebaseAuth
+
+
 
 class ChatUserAdapter(val context: Context?, val ChatUserList: ArrayList<ChatUser>):
-
     RecyclerView.Adapter<ChatUserAdapter.UserViewHolder>() {
+    private lateinit var mAuth: FirebaseAuth
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
         val view: View = LayoutInflater.from(context).inflate(R.layout.chat_user_layout,parent,false)
@@ -24,11 +25,14 @@ class ChatUserAdapter(val context: Context?, val ChatUserList: ArrayList<ChatUse
 
     override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
         val currentUser=ChatUserList[position]
-        holder.textname.text = currentUser.uid_1
+        mAuth= FirebaseAuth.getInstance()
+
+
+        holder.textname.text = currentUser.uid
+
         holder.itemView.setOnClickListener{
             val intent = Intent(this.context, ChatActivity::class.java)
-            intent.putExtra("uid_1",currentUser.uid_1)
-            intent.putExtra("uid_2",currentUser.uid_2)
+            intent.putExtra("uid",currentUser.uid)
             context?.startActivity(intent)
         }
     }

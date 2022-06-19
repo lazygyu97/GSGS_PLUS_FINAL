@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.*
 import com.example.gsgs_plus_final.R
-import com.example.gsgs_plus_final.chat.ChatUser
 import com.example.gsgs_plus_final.vo.User
 import com.google.firebase.FirebaseException
 import com.google.firebase.FirebaseTooManyRequestsException
