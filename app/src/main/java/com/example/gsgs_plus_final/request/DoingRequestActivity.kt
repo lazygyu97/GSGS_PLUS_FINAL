@@ -37,6 +37,7 @@ class DoingRequestActivity : AppCompatActivity() {
         val name = intent.getStringExtra("result")
         val start = intent.getStringExtra("start")
         val end = intent.getStringExtra("end")
+        val id = intent.getStringExtra("id")
 
         Log.d("요청 중1:", name.toString())
         Log.d("요청 중2 :", start.toString())
@@ -64,8 +65,10 @@ class DoingRequestActivity : AppCompatActivity() {
 
                 if (result == "1") {
                     val intent = Intent(this, SuccessRequestActivity::class.java)
+                    intent.putExtra("name",name)
                     intent.putExtra("start",start)
                     intent.putExtra("end",end)
+                    intent.putExtra("id",id)
                     startActivity(intent)
 
 

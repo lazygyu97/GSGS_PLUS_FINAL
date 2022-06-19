@@ -24,7 +24,7 @@ import java.util.regex.Pattern
 class JoinActivity : AppCompatActivity() {
 
     //실시간 디비 받기위한 디비 초기화
-    private lateinit var mDbRef: DatabaseReference
+//    private lateinit var mDbRef: DatabaseReference
     private lateinit var auth: FirebaseAuth
     var double_check_confirm = "no"
     var phone_auth  = false
@@ -241,8 +241,8 @@ class JoinActivity : AppCompatActivity() {
 
 
                             Toast.makeText(this,"회원가입 성공!",Toast.LENGTH_LONG).show()
-                            //실시간 디비에 이름하고 uid 추가
-                            addUserToDatabase(user.name,auth.currentUser?.uid!!)
+//                            //실시간 디비에 이름하고 uid 추가
+//                            addUserToDatabase(user.name,auth.currentUser?.uid!!)
                             val intent = Intent(this, JoinFinshActivity::class.java)
                             intent.putExtra("user_name",user.name)
                             startActivity(intent)
@@ -285,9 +285,9 @@ class JoinActivity : AppCompatActivity() {
 
 
     }
-    private fun addUserToDatabase(name: String,uid: String){
-        mDbRef= FirebaseDatabase.getInstance().getReference()
-        mDbRef.child("user").child(uid).setValue(ChatUser(name,uid))
-
-    }
+//    private fun addUserToDatabase(name: String,uid: String){
+//        mDbRef= FirebaseDatabase.getInstance().getReference()
+//        mDbRef.child("user").child(uid).setValue(ChatUser(name,uid))
+//
+//    }
 }

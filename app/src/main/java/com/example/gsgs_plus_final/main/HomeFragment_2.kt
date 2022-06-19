@@ -146,6 +146,8 @@ class HomeFragment_2 : Fragment() {
 
 
                         docRef.document(accept_doc_id).update("pick_up_check_flag", "1")
+                        docRef.document(accept_doc_id).update("uid_2", auth.currentUser!!.uid)
+
                         docRef3.document(auth.currentUser!!.uid).update("pick_up_list",FieldValue.arrayUnion(accept_doc_id))
 
 

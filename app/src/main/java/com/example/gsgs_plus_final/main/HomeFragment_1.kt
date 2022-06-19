@@ -36,8 +36,6 @@ class HomeFragment_1 : Fragment() {
 
     private var viewProfile: View? = null
     var pickImageFromAlbum = 0
-    var fbStorage: FirebaseStorage? = null
-    var uriPhoto: Uri? = null
 
     private lateinit var auth: FirebaseAuth
 
@@ -170,9 +168,12 @@ class HomeFragment_1 : Fragment() {
                     pick_up_item_cost.text.toString(),
                     "0"
                 )
+
                 val start = pick_up_item_addr_start.text.toString().substring(8, 14)
                 Log.d("요청 중2 :", start)
                 val end = pick_up_item_addr_end.text.toString().substring(8, 14)
+                val user_id =auth.currentUser!!.email
+
                 docRef.document(makeRequestUid()).set(pick_up_request)
                 docRef3.document(auth.currentUser!!.email.toString()).update("pick_up_list", FieldValue.arrayUnion(makeRequestUid()))
                 activity?.let {
@@ -180,6 +181,7 @@ class HomeFragment_1 : Fragment() {
 
                     intent.putExtra("result", result)
                     intent.putExtra("start", start)
+                    intent.putExtra("id", user_id)
                     intent.putExtra("end", end)
                     startActivity(intent)
                 }
