@@ -9,24 +9,20 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AnimationUtils
-import android.widget.Button
-import android.widget.FrameLayout
 import android.widget.LinearLayout
-import android.widget.TextView
-import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.fragment.app.FragmentTransaction
 import com.example.gsgs_plus_final.R
 import com.example.gsgs_plus_final.login.PickerJoinActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import net.daum.mf.map.api.MapView
 
 
 class HomeFragment : Fragment() {
 
     private lateinit var auth: FirebaseAuth
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,12 +31,14 @@ class HomeFragment : Fragment() {
     }
 
     override fun onCreateView(
+
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
         val v = inflater.inflate(R.layout.fragment_home, container, false)
+
         childFragmentManager.beginTransaction().add(R.id.home_layout, HomeFragment_1(), "home")
             .commit()
 
@@ -61,7 +59,7 @@ class HomeFragment : Fragment() {
                 .setMessage("아직 배송회원이 아니시군요?\n가입하시겠습니까?")
                 .setPositiveButton("확인",
                     DialogInterface.OnClickListener { dialog, id ->
-                        activity?.let {
+                        activity?.let{
                             val intent = Intent(context, PickerJoinActivity::class.java)
                             startActivity(intent)
                         }
@@ -77,7 +75,12 @@ class HomeFragment : Fragment() {
             // 다이얼로그를 띄워주기
             ask_pick.show()
         }
+
+        //픽업 해주세요
         pl_btn.setOnClickListener {
+
+            docRef.document(auth.currentUser!!.email.toString()).update("doing_flag","0")
+
             val res = childFragmentManager.findFragmentById(R.id.home_layout).toString()
             Log.d("지금", res)
             val str = res.chunked(14)
@@ -91,18 +94,30 @@ class HomeFragment : Fragment() {
             do_btn.setBackgroundResource(R.drawable.button_shape)
 
 
+
         }
+
+        //픽업 할게요
         do_btn.setOnClickListener {
 
-            docRef.document(currentUser_email_addr).get().addOnSuccessListener { document ->
-                if (document.data!!.get("picker_flag") != "1") {
-                    ask_picker()
-                }
+            docRef.document(currentUser_email_addr).get().addOnSuccessListener {
+                    document -> if(document.data!!.get("picker_flag") != "1"){
+                ask_picker()
+            }else {
+                docRef.document(auth.currentUser!!.email.toString()).update("doing_flag","1")
             }
+            }
+
+
+
             pl_btn.setBackgroundResource(R.drawable.button_shape)
             do_btn.setBackgroundResource(R.drawable.button_shape_2)
             childFragmentManager.beginTransaction()
                 .replace(R.id.home_layout, HomeFragment_2()).commit();
+
+
+
+
         }
 
         // Inflate the layout for this fragment

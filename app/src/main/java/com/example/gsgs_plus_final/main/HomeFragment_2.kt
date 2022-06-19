@@ -21,10 +21,15 @@ import com.example.gsgs_plus_final.login.PickerJoinActivity
 import com.example.gsgs_plus_final.login.PwFindFinishActivity
 import com.example.gsgs_plus_final.pickUp.BeforePickUpActivity
 import com.example.gsgs_plus_final.vo.pick_list
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
 class HomeFragment_2 : Fragment() {
+
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +41,9 @@ class HomeFragment_2 : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
+
+
+
         val v = inflater.inflate(R.layout.fragment_home_2, container, false)
 
         val mainAct = activity as MainActivity
@@ -50,7 +58,10 @@ class HomeFragment_2 : Fragment() {
         //DB접근을 위한 Firebase 객체 선언 부분
 
         val db = Firebase.firestore
+        auth = Firebase.auth
         val docRef = db.collection("pick_up_request")
+        val docRef2 = db.collection("users")
+        val docRef3 = db.collection("pickers")
 
 
         //픽업요청서 애니메이션
@@ -135,6 +146,8 @@ class HomeFragment_2 : Fragment() {
 
 
                         docRef.document(accept_doc_id).update("pick_up_check_flag", "1")
+                        docRef3.document(auth.currentUser!!.uid).update("pick_up_list",FieldValue.arrayUnion(accept_doc_id))
+
 
                         val intent = Intent(context, BeforePickUpActivity::class.java)
                         intent.putExtra("Data",accept_doc_id)

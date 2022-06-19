@@ -8,5 +8,7 @@ data class User (
     val pwd : String,
     val p_num : String,
     val uid : String,
-    val picker_flag : String
-        )
+    val picker_flag : String,
+    val doing_flag : String,
+    val pick_up_list : List<String>
+)

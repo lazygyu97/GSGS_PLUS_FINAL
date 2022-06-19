@@ -25,6 +25,7 @@ import com.example.gsgs_plus_final.request.DoingRequestActivity
 import com.example.gsgs_plus_final.vo.PickUpRequest
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
@@ -173,6 +174,7 @@ class HomeFragment_1 : Fragment() {
                 Log.d("요청 중2 :", start)
                 val end = pick_up_item_addr_end.text.toString().substring(8, 14)
                 docRef.document(makeRequestUid()).set(pick_up_request)
+                docRef3.document(auth.currentUser!!.email.toString()).update("pick_up_list", FieldValue.arrayUnion(makeRequestUid()))
                 activity?.let {
                     val intent = Intent(context, DoingRequestActivity::class.java)
 

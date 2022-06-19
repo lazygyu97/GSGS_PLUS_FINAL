@@ -11,6 +11,7 @@ import com.example.gsgs_plus_final.vo.Picker
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.DocumentSnapshot
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.auth.User
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -50,10 +51,10 @@ class PickerJoinActivity : AppCompatActivity() {
             val currentUser_email_addr = auth.currentUser!!.email.toString()
             Log.d("CurrentUser:", currentUser_email_addr)
 
-           if(!(picker_join_double_check_confirm.isChecked)){
-               Toast.makeText(this,"이용약관에 동의해주세요!",Toast.LENGTH_LONG).show()
-               return@setOnClickListener
-           }
+            if(!(picker_join_double_check_confirm.isChecked)){
+                Toast.makeText(this,"이용약관에 동의해주세요!",Toast.LENGTH_LONG).show()
+                return@setOnClickListener
+            }
 
             if (picker_join_pwd_confirm.text.toString().isNullOrBlank()) {
                 Toast.makeText(this, "비밀번호를 입력하세요!", Toast.LENGTH_LONG).show()
@@ -90,10 +91,16 @@ class PickerJoinActivity : AppCompatActivity() {
                     Log.d("data:", document.data.toString())
                     var picker = Picker(document.data!!.get("name").toString(),document.data!!.get("sub_name").toString(),document.data!!.get("id").toString(),
                         document.data!!.get("pwd").toString(),document.data!!.get("p_num").toString(),document.data!!.get("uid").toString(),
-                        picker_join_addr.text.toString(),picker_join_bankNum.text.toString())
+                        picker_join_addr.text.toString(),picker_join_bankNum.text.toString(),
+                        listOf(""))
 
                     docRef.document(currentUser_email_addr).update("picker_flag","1")
                     docRef2.document(auth.currentUser!!.uid).set(picker)
+
+                    val updates = hashMapOf<String,Any>(
+                        "pick_up_list" to FieldValue.delete()
+                    )
+                    docRef2.document(auth.currentUser!!.uid).update(updates)
 
 
                     Toast.makeText(this, "픽커 가입 성공!\n메인화면으로 이동합니다. ", Toast.LENGTH_SHORT).show()
@@ -111,10 +118,10 @@ class PickerJoinActivity : AppCompatActivity() {
 
         }
 
-            back.setOnClickListener {
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
-            }
+        back.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+        }
 
 
     }

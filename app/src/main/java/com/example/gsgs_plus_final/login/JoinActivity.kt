@@ -15,6 +15,7 @@ import com.google.firebase.auth.*
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import java.util.concurrent.TimeUnit
@@ -154,16 +155,16 @@ class JoinActivity : AppCompatActivity() {
             val query = docRef.document(join_id.text.toString()).get()
 
             query.addOnSuccessListener {
-                document -> if(!document.exists()){
-                    this.double_check_confirm = "yes"
+                    document -> if(!document.exists()){
+                this.double_check_confirm = "yes"
                 Toast.makeText(this,"사용 가능한 ID입니다.",Toast.LENGTH_LONG).show()
-               }else{
-                   this.double_check_confirm = "no"
-                    Toast.makeText(this,"중복된 ID입니다.",Toast.LENGTH_LONG).show()
-                    return@addOnSuccessListener
-              }
+            }else{
+                this.double_check_confirm = "no"
+                Toast.makeText(this,"중복된 ID입니다.",Toast.LENGTH_LONG).show()
+                return@addOnSuccessListener
+            }
             }.addOnFailureListener{
-                exception ->
+                    exception ->
                 Log.d(TAG,"중복체크 로직 오류 ",exception)
             }
         }
@@ -230,8 +231,15 @@ class JoinActivity : AppCompatActivity() {
                                 task -> if(task.isSuccessful){
 
                             val user = User(join_name.text.toString(),join_sub_name.text.toString(),join_id.text.toString(),
-                                join_pwd.text.toString(),join_pnum.text.toString(),auth.currentUser!!.uid,"0")
+                                join_pwd.text.toString(),join_pnum.text.toString(),auth.currentUser!!.uid,"0","0",
+                                listOf(""))
                             docRef.document(user.id).set(user)
+                            val updates = hashMapOf<String,Any>(
+                                "pick_up_list" to FieldValue.delete()
+                            )
+                            docRef.document(user.id).update(updates)
+
+
                             Toast.makeText(this,"회원가입 성공!",Toast.LENGTH_LONG).show()
                             //실시간 디비에 이름하고 uid 추가
                             addUserToDatabase(user.name,auth.currentUser?.uid!!)
@@ -241,11 +249,11 @@ class JoinActivity : AppCompatActivity() {
 
                         }else{
 
-                                Toast.makeText(this, "회원가입 실패!", Toast.LENGTH_LONG).show()
-                                Log.d(TAG, "가입 실패 오류:", task.exception)
+                            Toast.makeText(this, "회원가입 실패!", Toast.LENGTH_LONG).show()
+                            Log.d(TAG, "가입 실패 오류:", task.exception)
 
 
-                             }
+                        }
 
                         }
 

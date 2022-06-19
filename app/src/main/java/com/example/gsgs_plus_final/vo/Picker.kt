@@ -10,5 +10,7 @@ data class Picker (
     val uid : String,
 //    val card_img : String,
     val picker_addr : String,
-    val bank_num : String
-        )
+    val bank_num : String,
+    val pick_up_list : List<String>
+
+)
