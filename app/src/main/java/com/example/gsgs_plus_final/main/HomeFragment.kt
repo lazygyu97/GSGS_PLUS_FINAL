@@ -35,8 +35,6 @@ class HomeFragment : Fragment() {
     }
 
     override fun onCreateView(
-
-
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -63,7 +61,7 @@ class HomeFragment : Fragment() {
                 .setMessage("아직 배송회원이 아니시군요?\n가입하시겠습니까?")
                 .setPositiveButton("확인",
                     DialogInterface.OnClickListener { dialog, id ->
-                        activity?.let{
+                        activity?.let {
                             val intent = Intent(context, PickerJoinActivity::class.java)
                             startActivity(intent)
                         }
@@ -96,10 +94,10 @@ class HomeFragment : Fragment() {
         }
         do_btn.setOnClickListener {
 
-            docRef.document(currentUser_email_addr).get().addOnSuccessListener {
-                    document -> if(document.data!!.get("picker_flag") != "1"){
+            docRef.document(currentUser_email_addr).get().addOnSuccessListener { document ->
+                if (document.data!!.get("picker_flag") != "1") {
                     ask_picker()
-                    }
+                }
             }
             pl_btn.setBackgroundResource(R.drawable.button_shape)
             do_btn.setBackgroundResource(R.drawable.button_shape_2)

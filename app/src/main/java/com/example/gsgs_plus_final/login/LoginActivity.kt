@@ -1,7 +1,10 @@
 package com.example.gsgs_plus_final.login
 
+import android.Manifest.permission.READ_EXTERNAL_STORAGE
 import android.content.ContentValues.TAG
+import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
@@ -10,6 +13,8 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import com.example.gsgs_plus_final.R
 import com.example.gsgs_plus_final.main.MainActivity
 import com.google.firebase.auth.FirebaseAuth
@@ -32,8 +37,40 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
+        // 2. 권한 요청
+        fun requestPermission() {
+            ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.CAMERA), 99)
+        }
+        //권한 확인
+        fun checkPermission() {
+
+            // 1. 위험권한(Camera) 권한 승인상태 가져오기
+            val cameraPermission = ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA)
+            if (cameraPermission == PackageManager.PERMISSION_GRANTED) {
+                // 카메라 권한이 승인된 상태일 경우
+
+            } else {
+                // 카메라 권한이 승인되지 않았을 경우
+                requestPermission()
+            }
+        }
 
 
+        // 권한 처리
+         fun onRequestPermissionsResult(
+            requestCode: Int,
+            permissions: Array<out String>,
+            grantResults: IntArray) {
+            when (requestCode) {
+                99 -> {
+                    if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    } else {
+                    }
+                }
+            }
+        }
+
+        checkPermission()
         val db = Firebase.firestore
         val docRef = db.collection("users")
 
