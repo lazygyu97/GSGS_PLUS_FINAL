@@ -29,6 +29,7 @@ import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
+import net.daum.mf.map.api.MapView
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -50,9 +51,9 @@ class HomeFragment_1 : Fragment() {
         val mainAct = activity as MainActivity
 
 
-//        val mapView=v.findViewById<ConstraintLayout>(R.id.kakaoMapView)
-//        val map = MapView(activity)
-//        mapView.addView(map)
+        val mapView=v.findViewById<ConstraintLayout>(R.id.kakaoMapView)
+        val map = MapView(activity)
+        mapView.addView(map)
 
 
         val animation_1 = AnimationUtils.loadAnimation(context, R.anim.translate_up)

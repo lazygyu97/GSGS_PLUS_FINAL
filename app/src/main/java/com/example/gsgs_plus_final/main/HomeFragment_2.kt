@@ -86,20 +86,21 @@ class HomeFragment_2 : Fragment() {
                     val start = start_addr.substring(8,14)
                     val end = end_addr.substring(8,14)
 
-                    Log.d("sub",start)
+
                     val request_cost: String = document.data["pick_up_item_cost"].toString()
                     val document_id: String = document.id
+                    val pick_up_flag : String = document.data["pick_up_check_flag"].toString()
 
                     pickList.apply {
 
-                        add(pick_list(start, end, request_cost, document_id))
+                        add(pick_list(start, end, request_cost, document_id,pick_up_flag))
 
                     }
 
                 }
 
                 val adapter = PickUpListAdapter(pickList)
-                var accept_doc_id: String = "No id"
+                var accept_doc_id: String? = "No id"
 
                 adapter.setOnItemClickListener(object : PickUpListAdapter.OnItemClickListener {
                     override fun onItemClick(data: pick_list, pos: Int) {
@@ -115,9 +116,9 @@ class HomeFragment_2 : Fragment() {
                         v.findViewById<TextView>(R.id.request_cost).text = data.request_cost
                         accept_doc_id = data.document_id
 
-                        Log.d("accept_doc_id", accept_doc_id)
 
-                        docRef.document(accept_doc_id).get().addOnSuccessListener { task ->
+
+                        docRef.document(accept_doc_id!!).get().addOnSuccessListener { task ->
                             if (task.data!!.get("pick_up_check_flag") == "1") {
 
                                 Toast.makeText(context,
@@ -145,7 +146,9 @@ class HomeFragment_2 : Fragment() {
                     activity?.let {
 
 
-                        docRef.document(accept_doc_id).update("pick_up_check_flag", "1")
+
+                        docRef.document(accept_doc_id!!).update("pick_up_check_flag", "1")
+                        docRef.document(accept_doc_id!!).update("uid_2", auth.currentUser!!.uid)
                         docRef3.document(auth.currentUser!!.uid).update("pick_up_list",FieldValue.arrayUnion(accept_doc_id))
 
 

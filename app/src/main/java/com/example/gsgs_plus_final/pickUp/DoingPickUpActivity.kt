@@ -32,7 +32,7 @@ class DoingPickUpActivity : AppCompatActivity() {
         btn_finish.setOnClickListener {
 
             docRef.document(data.toString()).get().addOnSuccessListener {
-                    task -> if(task.data!!.get("uid_2") == auth.currentUser!!.uid){
+                    task -> if(task.data!!.get("uid_2").toString() == auth.currentUser!!.uid){
                 docRef.document(data.toString()).update("pick_up_check_flag","2")
               }
             }
