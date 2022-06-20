@@ -13,8 +13,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.gsgs_plus_final.R
 import com.example.gsgs_plus_final.vo.pick_list
 
-class PickUpListAdapter(private val items: ArrayList<pick_list>) :
-    RecyclerView.Adapter<PickUpListAdapter.ViewHolder>() {
+class UseListAdapter(private val items: ArrayList<pick_list>) :
+    RecyclerView.Adapter<UseListAdapter.ViewHolder>() {
 
     override fun getItemCount(): Int {
         return items.size
@@ -22,11 +22,11 @@ class PickUpListAdapter(private val items: ArrayList<pick_list>) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflatedView =
-            LayoutInflater.from(parent.context).inflate(R.layout.pickup_list_item, parent, false)
-        return PickUpListAdapter.ViewHolder(inflatedView)
+            LayoutInflater.from(parent.context).inflate(R.layout.use_list_item, parent, false)
+        return UseListAdapter.ViewHolder(inflatedView)
     }
 
-    override fun onBindViewHolder(holder: PickUpListAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: UseListAdapter.ViewHolder, position: Int) {
 
         val item = items[position]
         Log.d("data!!!!:",item.toString())
@@ -52,10 +52,6 @@ class PickUpListAdapter(private val items: ArrayList<pick_list>) :
     fun setOnItemClickListener(listener: OnItemClickListener) {
         this.listener = listener
     }
-
-
-
-
 
 
 
