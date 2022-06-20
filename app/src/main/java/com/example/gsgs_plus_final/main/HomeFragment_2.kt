@@ -119,7 +119,7 @@ class HomeFragment_2 : Fragment() {
 
 
                         docRef.document(accept_doc_id!!).get().addOnSuccessListener { task ->
-                            if (task.data!!.get("pick_up_check_flag") == "1") {
+                            if (task.data!!.get("pick_up_check_flag") == "1"||task.data!!.get("pick_up_check_flag") == "2") {
 
                                 Toast.makeText(context,
                                     "이미 배차된 배송입니다!\n새로고침 해주세요!", Toast.LENGTH_LONG).show()
