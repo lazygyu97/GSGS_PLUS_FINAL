@@ -1,3 +1,5 @@
+package com.example.gsgs_plus_final.request
+
 import android.content.ContentValues.TAG
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -7,6 +9,7 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import com.example.gsgs_plus_final.R
+import com.example.gsgs_plus_final.chat.ChatUser
 import com.example.gsgs_plus_final.main.MainActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth

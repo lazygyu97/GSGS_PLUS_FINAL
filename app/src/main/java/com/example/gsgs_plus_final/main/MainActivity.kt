@@ -1,6 +1,5 @@
 package com.example.gsgs_plus_final.main
 
-import ChatFragment
 import android.content.DialogInterface
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
