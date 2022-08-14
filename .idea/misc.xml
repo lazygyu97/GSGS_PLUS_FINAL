@@ -3,6 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="../GSGS_PLUS_FINAL/app/src/main/res/layout/activity_before_pick_up.xml" value="0.1" />
+        <entry key="../GSGS_PLUS_FINAL/app/src/main/res/layout/activity_join.xml" value="0.5520607375271149" />
         <entry key="..\:/Users/sog31/AndroidStudioProjects/GSGS_PLUS_FINAL/app/src/main/res/layout/activity_before_pick_up.xml" value="0.1" />
         <entry key="..\:/Users/sog31/AndroidStudioProjects/GSGS_PLUS_FINAL/app/src/main/res/layout/activity_doing_pick_up.xml" value="0.33" />
         <entry key="..\:/Users/sog31/AndroidStudioProjects/GSGS_PLUS_FINAL/app/src/main/res/layout/activity_doing_request.xml" value="0.1" />
@@ -49,6 +51,7 @@
       </map>
     </option>
   </component>
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
