@@ -146,7 +146,7 @@ class JoinActivity : AppCompatActivity() {
 
             val join_id = findViewById<EditText>(R.id.join_id)
 
-            if(join_button.text.toString().isNullOrBlank()){
+            if(join_id.text.toString().isNullOrBlank()){
                 Toast.makeText(this,"아이디를 입력하세요!!",Toast.LENGTH_LONG).show()
                 return@setOnClickListener
             }

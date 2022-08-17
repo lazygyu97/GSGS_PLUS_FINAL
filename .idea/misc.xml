@@ -4,7 +4,8 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="../GSGS_PLUS_FINAL/app/src/main/res/layout/activity_before_pick_up.xml" value="0.1" />
-        <entry key="../GSGS_PLUS_FINAL/app/src/main/res/layout/activity_join.xml" value="0.5520607375271149" />
+        <entry key="../GSGS_PLUS_FINAL/app/src/main/res/layout/activity_join.xml" value="0.1" />
+        <entry key="../GSGS_PLUS_FINAL/app/src/main/res/layout/fragment_user.xml" value="0.1752786220871327" />
         <entry key="..\:/Users/sog31/AndroidStudioProjects/GSGS_PLUS_FINAL/app/src/main/res/layout/activity_before_pick_up.xml" value="0.1" />
         <entry key="..\:/Users/sog31/AndroidStudioProjects/GSGS_PLUS_FINAL/app/src/main/res/layout/activity_doing_pick_up.xml" value="0.33" />
         <entry key="..\:/Users/sog31/AndroidStudioProjects/GSGS_PLUS_FINAL/app/src/main/res/layout/activity_doing_request.xml" value="0.1" />
