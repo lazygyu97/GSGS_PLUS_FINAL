@@ -3,6 +3,7 @@ package com.example.gsgs_plus_final.main
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context.CLIPBOARD_SERVICE
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -13,6 +14,9 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import com.example.gsgs_plus_final.R
+import com.example.gsgs_plus_final.login.LoginActivity
+import com.example.gsgs_plus_final.login.MySharedPreferences
+import com.example.gsgs_plus_final.request.DoingRequestActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
@@ -59,12 +63,20 @@ class UserFragment : Fragment() {
         val clipboard: ClipboardManager = context?.getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
         val clip = ClipData.newPlainText("message",copy)
         val copy_btn = v.findViewById<Button>(R.id.btn_copy)
+        val logout_btn = v.findViewById<Button>(R.id.btn_log_out)
 
         copy_btn.setOnClickListener {
             clipboard.setPrimaryClip(clip)
             Toast.makeText(context, "클립보드에 복사되었습니다.", Toast.LENGTH_SHORT).show()
         }
-
+        //로그아웃 버튼눌렀을 때 저장된 아이디, 비밀번호를 삭제 후 로그인 창으로 이동
+        logout_btn.setOnClickListener {
+            activity?.let {
+                MySharedPreferences.clearUser(requireContext())
+                val intent = Intent(context, LoginActivity::class.java)
+                startActivity(intent)
+            }
+        }
         return v
     }
 
