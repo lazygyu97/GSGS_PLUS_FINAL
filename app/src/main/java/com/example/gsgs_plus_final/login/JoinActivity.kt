@@ -4,10 +4,14 @@ import android.content.ContentValues.TAG
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.widget.*
 import com.example.gsgs_plus_final.R
+import com.example.gsgs_plus_final.databinding.ActivityMainBinding
 import com.example.gsgs_plus_final.vo.User
+import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.FirebaseException
 import com.google.firebase.FirebaseTooManyRequestsException
 import com.google.firebase.auth.*
@@ -15,21 +19,25 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.FieldValue
+import com.google.firebase.firestore.auth.FirebaseAppCheckTokenProvider
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import java.util.concurrent.TimeUnit
 import java.util.regex.Pattern
 
-class JoinActivity : AppCompatActivity() {
+class JoinActivity : AppCompatActivity()  {
 
     //실시간 디비 받기위한 디비 초기화
 //    private lateinit var mDbRef: DatabaseReference
     private lateinit var auth: FirebaseAuth
     var double_check_confirm = "no"
-    var phone_auth  = false
+    private var phone_auth  = false
     var verificationIdAll : String =""
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
+
+
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_join)
@@ -42,13 +50,20 @@ class JoinActivity : AppCompatActivity() {
         val double_check = findViewById<Button>(R.id.btn_doubleCheck)
         val join_button = findViewById<Button>(R.id.btn_join)
 
+        textWatcher()
+
         //SMS발송 버튼 클릭
 
         val p_num_send = findViewById<Button>(R.id.join_pNum_sendBtn).setOnClickListener {
 
-            val join_pNum_insert = findViewById<EditText>(R.id.join_pNum_insert)
 
-            if(join_pNum_insert.text.toString().isNullOrBlank()){
+            val join_pNum_insert_one = findViewById<EditText>(R.id.join_pNum_insert_one)
+            val join_pNum_insert_two = findViewById<EditText>(R.id.join_pNum_insert_two)
+            val join_pNum_insert_three = findViewById<EditText>(R.id.join_pNum_insert_three)
+
+            val join_pNum_insert = join_pNum_insert_one.text.toString()+"-"+join_pNum_insert_two.text.toString()+"-"+join_pNum_insert_three.text.toString()
+
+            if(join_pNum_insert.isNullOrBlank()){
 
                 Toast.makeText(this,"핸드폰 번호를 형식에 맞게 기입하세요!",Toast.LENGTH_LONG).show()
                 return@setOnClickListener
@@ -87,9 +102,11 @@ class JoinActivity : AppCompatActivity() {
                 }
 
             }
+
+            Log.d("Phone!!",join_pNum_insert)
             //인증번호를 위한 객체들
             val options = PhoneAuthOptions.newBuilder(auth)
-                .setPhoneNumber("+82"+join_pNum_insert.text.toString())
+                .setPhoneNumber("+82"+join_pNum_insert)
                 .setTimeout(60L, TimeUnit.SECONDS)
                 .setActivity(this)
                 .setCallbacks(callbacks)
@@ -112,6 +129,7 @@ class JoinActivity : AppCompatActivity() {
                 auth.currentUser!!.delete().addOnCompleteListener {
                         task -> if(task.isSuccessful){
                     Log.d("PhoneUserDelete","Complete")
+                    auth.signOut()
 
                 }
 
@@ -168,7 +186,6 @@ class JoinActivity : AppCompatActivity() {
             }
         }
 
-
         join_button.setOnClickListener {
 
             try {
@@ -179,7 +196,11 @@ class JoinActivity : AppCompatActivity() {
                 val join_id = findViewById<EditText>(R.id.join_id)
                 val join_pwd = findViewById<EditText>(R.id.join_pwd)
                 val join_confirm_pwd = findViewById<EditText>(R.id.join_confirm_pwd)
-                val join_pnum = findViewById<EditText>(R.id.join_pNum_insert)
+                val join_pNum_insert_one = findViewById<EditText>(R.id.join_pNum_insert_one)
+                val join_pNum_insert_two = findViewById<EditText>(R.id.join_pNum_insert_two)
+                val join_pNum_insert_three = findViewById<EditText>(R.id.join_pNum_insert_three)
+
+                val join_pNum_insert = join_pNum_insert_one.text.toString()+"-"+join_pNum_insert_two.text.toString()+"-"+join_pNum_insert_three.text.toString()
 
                 join_check.setOnCheckedChangeListener { buttonView, isChecked ->
 
@@ -220,6 +241,11 @@ class JoinActivity : AppCompatActivity() {
                     return@setOnClickListener
                 }
 
+                if(!phone_auth){
+                    Toast.makeText(this,"휴대폰 인증을 해주세요!",Toast.LENGTH_LONG).show()
+                    return@setOnClickListener
+                }
+
                 if(double_check_confirm == "no") {
                     Toast.makeText(this,"중복체크 해주세요!",Toast.LENGTH_LONG).show()
                     return@setOnClickListener
@@ -230,7 +256,7 @@ class JoinActivity : AppCompatActivity() {
                                 task -> if(task.isSuccessful){
 
                             val user = User(join_name.text.toString(),join_sub_name.text.toString(),join_id.text.toString(),
-                                join_pwd.text.toString(),join_pnum.text.toString(),auth.currentUser!!.uid,"0","0",
+                                join_pwd.text.toString(),join_pNum_insert,auth.currentUser!!.uid,"0","0",
                                 listOf(""))
                             docRef.document(user.id).set(user)
                             val updates = hashMapOf<String,Any>(
@@ -284,6 +310,49 @@ class JoinActivity : AppCompatActivity() {
 
 
     }
+
+    //비밀번호 확인란을 위한 함수
+
+    fun textWatcher(){
+        val pwd1 = findViewById<EditText>(R.id.join_pwd)
+        val pwd2 = findViewById<EditText>(R.id.join_confirm_pwd)
+
+        pwd1
+
+        pwd2.addTextChangedListener(object : TextWatcher{
+
+
+            //입력 전 동작
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                pwd2.error = "비밀번호 확인을 입력하세요!"
+            }
+
+            //입력난에 변화가 있을 때 동작
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                pwd2.error = "비밀번호 확인이 일치하지 않습니다!"
+            }
+
+            //입력이 끝났을 때 동작
+            override fun afterTextChanged(p0: Editable?) {
+                if(pwd1.text.toString()!=pwd2.text.toString()){
+                    pwd2.error = "비밀번호 확인이 일치하지 않습니다!"
+                }
+                else if(pwd1.text.toString()==pwd2.text.toString()){
+                    pwd2.error = null
+                }
+            }
+
+        })
+
+
+
+
+
+
+
+
+    }
+
 //    private fun addUserToDatabase(name: String,uid: String){
 //        mDbRef= FirebaseDatabase.getInstance().getReference()
 //        mDbRef.child("user").child(uid).setValue(ChatUser(name,uid))

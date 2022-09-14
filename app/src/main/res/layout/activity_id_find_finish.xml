@@ -28,20 +28,62 @@
         android:layout_gravity="center"
         android:orientation="vertical">
 
-        <TextView
-            android:layout_marginTop="50dp"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="310dp"
             android:layout_height="wrap_content"
-            android:text="박현규님의 아이디는"
-            android:textColor="@color/black"
-            android:textSize="24dp"/>
-        <TextView
-            android:layout_marginTop="20dp"
-            android:layout_width="wrap_content"
+            android:layout_gravity="center"
+            >
+            <TextView
+                android:id="@+id/id_find_finish_name"
+                android:layout_marginTop="50dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="User"
+                android:textColor="@color/black"
+                android:textSize="24dp"/>
+
+            <TextView
+                android:layout_marginTop="50dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" 님의 아이디는"
+                android:textColor="@color/black"
+                android:textSize="24dp"
+                />
+
+        </LinearLayout>
+
+
+
+        <LinearLayout
+
+            android:layout_width="310dp"
             android:layout_height="wrap_content"
-            android:text="park970406 입니다."
-            android:textColor="@color/black"
-            android:textSize="30dp"/>
+            android:layout_gravity="center">
+
+            <TextView
+                android:id="@+id/id_find_finish_id"
+                android:layout_marginTop="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="example"
+                android:textColor="@color/black"
+                android:textSize="30dp"/>
+
+
+            <TextView
+
+                android:layout_marginTop="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" 입니다."
+                android:textColor="@color/black"
+                android:textSize="30dp"/>
+
+
+        </LinearLayout>
+
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
