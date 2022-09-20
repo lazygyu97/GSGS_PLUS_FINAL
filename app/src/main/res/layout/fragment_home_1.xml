@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/home_1"
     tools:context=".main.HomeFragment_1">
 
     <LinearLayout
@@ -36,21 +37,38 @@
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/kakaoMapView"
+            android:id="@+id/TMapView"
             android:layout_width="match_parent"
-            android:layout_height="400dp" />
+            android:layout_height="400dp" >
 
-        <Button
-            android:id="@+id/pick_up_btn"
-            android:layout_width="200dp"
-            android:layout_height="45dp"
-            android:layout_gravity="center"
-            android:background="@drawable/btn_pick_up"
-            android:fontFamily="@font/cafe24"
-            android:text="픽업요청서"
-            android:textColor="#000000"
-            android:textSize="15dp"
-            android:visibility="visible" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <Button
+                android:layout_marginLeft="100dp"
+                android:id="@+id/pick_up_btn"
+                android:layout_width="200dp"
+                android:layout_height="45dp"
+                android:layout_gravity="center"
+                android:background="@drawable/btn_pick_up"
+                android:fontFamily="@font/cafe24"
+                android:text="픽업요청서"
+                android:textColor="#000000"
+                android:textSize="15dp"
+                android:visibility="visible" />
+            <Button
+
+                android:layout_marginLeft="60dp"
+                android:id="@+id/lo_btn"
+                android:background="@drawable/ic_baseline_refresh_24"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+
+        </LinearLayout>
 
         <LinearLayout
 

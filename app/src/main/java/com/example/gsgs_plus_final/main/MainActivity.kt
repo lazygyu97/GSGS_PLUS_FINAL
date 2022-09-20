@@ -2,6 +2,7 @@ package com.example.gsgs_plus_final.main
 
 import android.content.DialogInterface
 import android.content.Intent
+import android.location.Location
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -21,6 +22,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.skt.Tmap.TMapGpsManager
 
 
 class MainActivity : AppCompatActivity() {
@@ -134,10 +136,10 @@ class MainActivity : AppCompatActivity() {
 
         pick_up.setOnCheckedChangeListener { _, onSwitch ->
             if (onSwitch) {
-                docRef.document(currentUser_email_addr).get().addOnSuccessListener {
-                        document -> if(document.data!!.get("picker_flag") != "1"){
-                    ask_picker()
-                  }
+                docRef.document(currentUser_email_addr).get().addOnSuccessListener { document ->
+                    if (document.data!!.get("picker_flag") != "1") {
+                        ask_picker()
+                    }
                 }
             }
         }
@@ -174,6 +176,7 @@ class MainActivity : AppCompatActivity() {
 
 
     }
+
 
 
 }
