@@ -1,11 +1,10 @@
 package com.example.tmaptest.retrofit
 
+import com.example.gsgs_plus_final.data.routes
 import com.example.tmaptest.data.Coordinate
 import com.example.tmaptest.data.start
 import retrofit2.Call
-import retrofit2.http.GET
-import retrofit2.http.Query
-import retrofit2.http.QueryMap
+import retrofit2.http.*
 
 
 interface GeoCodingInterface {
@@ -18,4 +17,15 @@ interface GeoCodingInterface {
         @Query("fullAddr") fullAddr: String,
         @Query("appKey") appKey: String,
     ) : Call<start>
+
+    @FormUrlEncoded
+    @POST("tmap/routes")
+    fun getRoutes(
+        @Field("endX") endX:Double,
+        @Field("endY") endY:Double,
+        @Field("startX") startX: Double,
+        @Field("startY") startY: Double,
+        @Field("appKey") appKey: String,
+        @Field("totalValue") totalValue:Int
+    ):Call<routes>
 }
