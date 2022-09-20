@@ -188,7 +188,15 @@ class HomeFragment_1 : Fragment(), TMapGpsManager.onLocationChangedCallback {
                     response: Response<start>
                 ) {
                     Log.d("TAG", "성공")
-                    Log.d("result", response.body()?.coordinateInfo?.coordinate.toString())
+                    response.body()?.coordinateInfo?.coordinate?.get(0)?.newLat
+                    response.body()?.coordinateInfo?.coordinate?.get(0)?.newLon
+
+                    Log.d("result 1",response.body()?.coordinateInfo?.coordinate?.get(0)?.lat.toString() )
+                    Log.d("result 1",response.body()?.coordinateInfo?.coordinate?.get(0)?.lon.toString())
+                    Log.d("result 1",response.body()?.coordinateInfo?.coordinate?.get(0)?.newLat.toString() )
+                    Log.d("result 1",response.body()?.coordinateInfo?.coordinate?.get(0)?.newLon.toString())
+                    Log.d("result 1",response.body()?.coordinateInfo?.coordinate?.get(0)?.newLatEntr.toString() )
+                    Log.d("result 1",response.body()?.coordinateInfo?.coordinate?.get(0)?.newLonEntr.toString())
                 }
             })
         }
@@ -210,10 +218,15 @@ class HomeFragment_1 : Fragment(), TMapGpsManager.onLocationChangedCallback {
                     response: Response<start>
                 ) {
                     Log.d("TAG", "성공")
-                    Log.d("result", response.body()?.coordinateInfo?.coordinate.toString())
-                }
+                    Log.d("result 2",response.body()?.coordinateInfo?.coordinate?.get(0)?.lat.toString() )
+                    Log.d("result 2",response.body()?.coordinateInfo?.coordinate?.get(0)?.lon.toString())
+                    Log.d("result 2",response.body()?.coordinateInfo?.coordinate?.get(0)?.newLat.toString())
+                    Log.d("result 2",response.body()?.coordinateInfo?.coordinate?.get(0)?.newLon.toString())
+                    Log.d("result 2",response.body()?.coordinateInfo?.coordinate?.get(0)?.newLatEntr.toString() )
+                    Log.d("result 2",response.body()?.coordinateInfo?.coordinate?.get(0)?.newLonEntr.toString())            }
             })
         }
+
         lo_btn.setOnClickListener {
            Log.d("dd",tmap!!.location.toString())
             tmapView!!.setLocationPoint(tmap!!.location.longitude, tmap!!.location.latitude)
