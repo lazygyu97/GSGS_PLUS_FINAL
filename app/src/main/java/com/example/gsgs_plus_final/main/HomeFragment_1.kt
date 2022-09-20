@@ -1,10 +1,10 @@
 package com.example.gsgs_plus_final.main
 
 import android.Manifest
-import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.net.Uri
+import android.location.Location
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
@@ -18,28 +18,53 @@ import android.webkit.WebView
 import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.ContextCompat
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.core.content.ContextCompat.startActivity
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import com.example.gsgs_plus_final.R
 import com.example.gsgs_plus_final.request.DoingRequestActivity
 import com.example.gsgs_plus_final.vo.PickUpRequest
+import com.example.tmaptest.data.start
+import com.example.tmaptest.retrofit.GeoCodingInterface
+import com.example.tmaptest.retrofit.RetrofitClient
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.FirebaseStorage
-import net.daum.mf.map.api.MapView
+import com.skt.Tmap.TMapGpsManager
+import com.skt.Tmap.TMapView
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
 import java.text.SimpleDateFormat
 import java.util.*
 
-class HomeFragment_1 : Fragment() {
+
+class HomeFragment_1 : Fragment(), TMapGpsManager.onLocationChangedCallback {
+
 
     private var viewProfile: View? = null
     var pickImageFromAlbum = 0
+    private lateinit var location: Location
 
+    lateinit var mainActivity: MainActivity
     private lateinit var auth: FirebaseAuth
+    private lateinit var retrofit: Retrofit
+    private lateinit var supplementService: GeoCodingInterface
 
+    var tmapView: TMapView? = null
+    var tmap: TMapGpsManager? = null
+
+    override fun onLocationChange(p0: Location) {
+        Log.d("#######%%%%%%", p0.toString())
+        tmapView!!.setLocationPoint(p0.longitude, p0.latitude)
+        tmapView!!.setCenterPoint(p0.longitude, p0.latitude)
+
+    }
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -47,14 +72,43 @@ class HomeFragment_1 : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
+
+        retrofit = RetrofitClient.getInstance() // retrofit 초기화
+        supplementService = retrofit.create(GeoCodingInterface::class.java) // 서비스 가져오기
+
         val v = inflater.inflate(R.layout.fragment_home_1, container, false)
         val mainAct = activity as MainActivity
+        val maps = v.findViewById<ConstraintLayout>(R.id.TMapView)
+        tmapView = TMapView(context)
+        tmapView!!.setSKTMapApiKey("l7xx961891362ed44d06a261997b67e5ace6")
 
 
-        val mapView=v.findViewById<ConstraintLayout>(R.id.kakaoMapView)
-        val map = MapView(activity)
-        mapView.addView(map)
+        tmapView!!.setZoom(17f)
+        tmapView!!.setIconVisibility(true)
+        tmapView!!.setMapType(TMapView.MAPTYPE_STANDARD)
+        tmapView!!.setLanguage(TMapView.LANGUAGE_KOREAN)
+        maps.addView(tmapView)
 
+        if (context?.let {
+                ActivityCompat.checkSelfPermission(
+                    it,
+                    Manifest.permission.ACCESS_FINE_LOCATION
+                )
+            } != PackageManager.PERMISSION_GRANTED
+            || ActivityCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED) {
+            var permissions = arrayOf(
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            )
+            ActivityCompat.requestPermissions(mainAct, permissions, 100)
+        }
+
+        tmap = TMapGpsManager(context)
+        Log.d("#######", tmap!!.location.toString())
+        tmap!!.OpenGps()
 
         val animation_1 = AnimationUtils.loadAnimation(context, R.anim.translate_up)
         val animation_2 = AnimationUtils.loadAnimation(context, R.anim.translate_down)
@@ -65,7 +119,7 @@ class HomeFragment_1 : Fragment() {
         val docRef = db.collection("pick_up_request")
         val docRef2 = db.collection("pickers")
         val docRef3 = db.collection("users")
-
+        val lo_btn=v.findViewById<Button>(R.id.lo_btn)
         val page = v.findViewById<LinearLayout>(R.id.page)
         val pick_up_btn = v.findViewById<Button>(R.id.pick_up_btn)
         val close_btn = v.findViewById<TextView>(R.id.close_btn)
@@ -116,6 +170,55 @@ class HomeFragment_1 : Fragment() {
             }
         }
 
+        //지오코드
+        fun getSearchList_1(
+            service: GeoCodingInterface,
+            version: String,
+            fullAddr: String,
+            appKey: String
+        ) {
+            service.requestList(version, fullAddr, appKey).enqueue(object : Callback<start> {
+
+                override fun onFailure(call: Call<start>, error: Throwable) {
+                    Log.d("TAG", "실패 원인: {$error}")
+                }
+
+                override fun onResponse(
+                    call: Call<start>,
+                    response: Response<start>
+                ) {
+                    Log.d("TAG", "성공")
+                    Log.d("result", response.body()?.coordinateInfo?.coordinate.toString())
+                }
+            })
+        }
+
+        fun getSearchList_2(
+            service: GeoCodingInterface,
+            version: String,
+            fullAddr: String,
+            appKey: String
+        ) {
+            service.requestList(version, fullAddr, appKey).enqueue(object : Callback<start> {
+
+                override fun onFailure(call: Call<start>, error: Throwable) {
+                    Log.d("TAG", "실패 원인: {$error}")
+                }
+
+                override fun onResponse(
+                    call: Call<start>,
+                    response: Response<start>
+                ) {
+                    Log.d("TAG", "성공")
+                    Log.d("result", response.body()?.coordinateInfo?.coordinate.toString())
+                }
+            })
+        }
+        lo_btn.setOnClickListener {
+           Log.d("dd",tmap!!.location.toString())
+            tmapView!!.setLocationPoint(tmap!!.location.longitude, tmap!!.location.latitude)
+            tmapView!!.setCenterPoint(tmap!!.location.longitude, tmap!!.location.latitude)
+        }
 
         pick_up_btn.setOnClickListener {
             pick_up_btn.visibility = View.INVISIBLE
@@ -152,6 +255,16 @@ class HomeFragment_1 : Fragment() {
                 Toast.makeText(context, "예상비용을 입력하세요!", Toast.LENGTH_LONG).show()
                 return@setOnClickListener
             }
+            //지오코딩 출발, 도착
+            val s_1 = pick_up_item_addr_start.text.toString()
+            val e_1 = pick_up_item_addr_end.text.toString()
+
+            val s_2 = s_1.substring(7)
+            val e_2 = e_1.substring(7)
+            Log.d("!!!!!!!!!", s_2)
+
+            getSearchList_1(supplementService, "1", s_2, "l7xx961891362ed44d06a261997b67e5ace6")
+            getSearchList_2(supplementService, "1", e_2, "l7xx961891362ed44d06a261997b67e5ace6")
 
             docRef3.document(auth.currentUser!!.email.toString()).get().addOnSuccessListener {
 
@@ -173,10 +286,11 @@ class HomeFragment_1 : Fragment() {
                 val start = pick_up_item_addr_start.text.toString().substring(8, 14)
                 Log.d("요청 중2 :", start)
                 val end = pick_up_item_addr_end.text.toString().substring(8, 14)
-                val user_id =auth.currentUser!!.email
+                val user_id = auth.currentUser!!.email
 
                 docRef.document(makeRequestUid()).set(pick_up_request)
-                docRef3.document(auth.currentUser!!.email.toString()).update("pick_up_list", FieldValue.arrayUnion(makeRequestUid()))
+                docRef3.document(auth.currentUser!!.email.toString())
+                    .update("pick_up_list", FieldValue.arrayUnion(makeRequestUid()))
                 activity?.let {
                     val intent = Intent(context, DoingRequestActivity::class.java)
 
@@ -245,7 +359,6 @@ class HomeFragment_1 : Fragment() {
 
     }
 
-
     @RequiresApi(Build.VERSION_CODES.O)
     fun makeRequestUid(): String {
         var date = Date()
@@ -256,4 +369,25 @@ class HomeFragment_1 : Fragment() {
 
     }
 
-}
+
+        override fun onRequestPermissionsResult(
+            requestCode: Int,
+            permissions: Array<out String>,
+            grantResults: IntArray,
+        ) {
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+
+            if (requestCode === 100) {
+                if (grantResults.size > 0) {
+                    for (grant in grantResults) {
+                        if (grant != PackageManager.PERMISSION_GRANTED) System.exit(0)
+                    }
+                }
+            }
+
+        }
+
+
+
+    }
+

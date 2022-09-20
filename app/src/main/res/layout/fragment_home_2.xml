@@ -138,14 +138,13 @@
                         android:textColor="@color/black"
                         android:textSize="20dp" />
 
-                    <ImageView
+                    <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="330dp"
                         android:layout_height="300dp"
                         android:layout_gravity="center"
                         android:layout_marginTop="10dp"
-                        android:background="@drawable/btn_edge"
-                        android:src="@drawable/gsgs_logo" />
-
+                        android:id="@+id/TMapView"
+                        android:background="@drawable/btn_edge"/>
                 </LinearLayout>
 
                 <LinearLayout

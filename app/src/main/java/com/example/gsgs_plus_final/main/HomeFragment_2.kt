@@ -13,6 +13,7 @@ import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gsgs_plus_final.R
@@ -26,6 +27,8 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.skt.Tmap.TMapGpsManager
+import com.skt.Tmap.TMapView
 
 class HomeFragment_2 : Fragment() {
 
@@ -36,17 +39,32 @@ class HomeFragment_2 : Fragment() {
 
     }
 
+    var tmapView: TMapView? = null
+    var tmap: TMapGpsManager? = null
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
 
-
-
         val v = inflater.inflate(R.layout.fragment_home_2, container, false)
-
         val mainAct = activity as MainActivity
+
+        val maps = v.findViewById<ConstraintLayout>(R.id.TMapView)
+        tmapView = TMapView(context)
+        tmapView!!.setSKTMapApiKey("l7xx961891362ed44d06a261997b67e5ace6")
+
+
+        tmapView!!.setZoom(17f)
+        tmapView!!.setIconVisibility(true)
+        tmapView!!.setMapType(TMapView.MAPTYPE_STANDARD)
+        tmapView!!.setLanguage(TMapView.LANGUAGE_KOREAN)
+        maps.addView(tmapView)
+        tmap = TMapGpsManager(context)
+        Log.d("#######", tmap!!.location.toString())
+        tmap!!.OpenGps()
+
         val page = v.findViewById<LinearLayout>(R.id.page)
         val close_btn = v.findViewById<TextView>(R.id.close_btn)
         val list = v.findViewById<RecyclerView>(R.id.using_list_view)
